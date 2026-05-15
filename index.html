@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>销售预算进度分析报告 · 2026年3月</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --primary: #1a3a5c;
+    --accent: #2e75b6;
+    --accent2: #1abc9c;
+    --danger: #e74c3c;
+    --warn: #f39c12;
+    --success: #27ae60;
+    --bg: #f0f4f8;
+    --card: #ffffff;
+    --text: #2c3e50;
+    --muted: #7f8c8d;
+    --border: #dce6f0;
+  }
+  body {
+    font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, #0d2137 0%, #1a3a5c 50%, #1e5799 100%);
+    color: #fff;
+    padding: 36px 48px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    right: -60px; top: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    right: 80px; bottom: -80px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.03);
+  }
+  .header-title { font-size: 28px; font-weight: 700; letter-spacing: 1px; }
+  .header-sub { margin-top: 6px; font-size: 14px; color: rgba(255,255,255,0.6); }
+  .header-meta { margin-top: 12px; display: flex; gap: 24px; }
+  .header-meta span {
+    font-size: 13px; color: rgba(255,255,255,0.75);
+    background: rgba(255,255,255,0.1);
+    padding: 4px 12px; border-radius: 20px;
+  }
+
+  /* ── Layout ── */
+  .main { max-width: 1440px; margin: 0 auto; padding: 28px 32px 48px; }
+
+  /* ── KPI Cards ── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 28px;
+  }
+  .kpi-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 22px 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border-top: 4px solid var(--accent);
+    position: relative;
+    overflow: hidden;
+  }
+  .kpi-card:nth-child(2) { border-top-color: var(--accent2); }
+  .kpi-card:nth-child(3) { border-top-color: var(--warn); }
+  .kpi-card:nth-child(4) { border-top-color: var(--danger); }
+  .kpi-card.positive { border-top-color: var(--success); }
+  .kpi-card.negative { border-top-color: var(--danger); }
+  .kpi-label { font-size: 13px; color: var(--muted); font-weight: 500; }
+  .kpi-value { font-size: 32px; font-weight: 700; margin-top: 8px; letter-spacing: -1px; }
+  .kpi-sub { font-size: 12px; color: var(--muted); margin-top: 6px; }
+  .kpi-badge {
+    position: absolute; top: 16px; right: 16px;
+    font-size: 11px; padding: 3px 10px; border-radius: 12px;
+    font-weight: 600;
+  }
+  .badge-good { background: #e8f8f0; color: var(--success); }
+  .badge-warn { background: #fef9e7; color: var(--warn); }
+  .badge-bad  { background: #fdedec; color: var(--danger); }
+  .kpi-icon { font-size: 36px; position: absolute; right: 16px; bottom: 12px; opacity: 0.12; }
+
+  /* ── Section ── */
+  .section { margin-bottom: 28px; }
+  .section-title {
+    font-size: 16px; font-weight: 700;
+    color: var(--primary);
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-title::before {
+    content: '';
+    width: 4px; height: 18px;
+    background: var(--accent);
+    border-radius: 2px;
+    display: block;
+  }
+
+  /* ── Chart Grid ── */
+  .chart-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .chart-grid-3 {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 18px;
+  }
+  .chart-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .chart-card-title {
+    font-size: 14px; font-weight: 600;
+    color: var(--primary); margin-bottom: 12px;
+  }
+  .chart-box { width: 100%; }
+
+  /* ── Table ── */
+  .table-card {
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .table-card-header {
+    background: var(--primary);
+    color: #fff;
+    padding: 14px 20px;
+    font-size: 14px; font-weight: 600;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  table { width: 100%; border-collapse: collapse; }
+  thead tr { background: #f0f5fb; }
+  thead th {
+    padding: 11px 14px;
+    font-size: 12px; font-weight: 700;
+    color: var(--primary); text-align: center;
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+  }
+  thead th:first-child { text-align: left; }
+  tbody tr { transition: background .15s; }
+  tbody tr:hover { background: #f5f9ff; }
+  tbody tr:nth-child(even) { background: #fafcff; }
+  tbody td {
+    padding: 10px 14px;
+    font-size: 13px; border-bottom: 1px solid var(--border);
+    text-align: center; white-space: nowrap;
+  }
+  tbody td:first-child { text-align: left; font-weight: 600; }
+  .tfoot-row td {
+    background: #e8f0fb !important;
+    font-weight: 700; font-size: 13px;
+    border-top: 2px solid var(--accent);
+    color: var(--primary);
+  }
+
+  /* ── Progress Bar ── */
+  .progress-wrap { display: flex; align-items: center; gap: 8px; min-width: 140px; }
+  .progress-bar-bg {
+    flex: 1; height: 8px; background: #e8edf2; border-radius: 4px; overflow: hidden;
+  }
+  .progress-bar { height: 100%; border-radius: 4px; transition: width .6s ease; }
+  .progress-label { font-size: 12px; font-weight: 700; min-width: 46px; text-align: right; }
+
+  /* ── Badge ── */
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .tag-green { background: #e8f8f0; color: #27ae60; }
+  .tag-red { background: #fdedec; color: #e74c3c; }
+  .tag-orange { background: #fef5e7; color: #e67e22; }
+  .tag-blue { background: #eaf1fb; color: #2e75b6; }
+
+  /* ── Region Tag ── */
+  .region-tag {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 12px; font-weight: 600;
+  }
+  .rt-华北 { background: #eaf1fb; color: #2e75b6; }
+  .rt-华东 { background: #e8f8f0; color: #1a7a4a; }
+  .rt-华南 { background: #fef5e7; color: #c97a00; }
+  .rt-华西 { background: #f0eaff; color: #6c2eb9; }
+  .rt-线上 { background: #e0f7fa; color: #006064; }
+  .rt-海外 { background: #fce4ec; color: #ad1457; }
+  .rt-其他 { background: #f5f5f5; color: #555; }
+
+  /* ── Highlight top / bottom ── */
+  .rank-1 { color: #c0392b; font-weight: 800; }
+  .rank-low { color: #27ae60; }
+
+  /* ── Scrollable table ── */
+  .table-scroll { overflow-x: auto; }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center; padding: 24px;
+    font-size: 12px; color: var(--muted);
+    border-top: 1px solid var(--border);
+    margin-top: 16px;
+  }
+
+  /* ── Tabs ── */
+  .tabs { display: flex; gap: 0; margin-bottom: 0; border-bottom: none; }
+  .tab-btn {
+    padding: 9px 22px; font-size: 13px; font-weight: 600;
+    cursor: pointer; border: none;
+    background: #e8edf5; color: var(--muted);
+    border-radius: 8px 8px 0 0;
+    transition: all .2s;
+    margin-right: 4px;
+  }
+  .tab-btn.active { background: var(--card); color: var(--primary); }
+  .tab-pane { display: none; }
+  .tab-pane.active { display: block; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-title">销售预算进度分析报告</div>
+  <div class="header-sub">Sales Budget Progress Analysis</div>
+  <div class="header-meta">
+    <span>📅 统计截止：2026年3月</span>
+    <span>🏢 覆盖大区：7个</span>
+    <span>📍 网点数量：37个</span>
+    <span>💰 金额单位：万元</span>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- KPI Cards -->
+  <div class="kpi-grid" id="kpi-cards"></div>
+
+  <!-- 月度趋势 + 大区进度 -->
+  <div class="section">
+    <div class="section-title">月度销售趋势</div>
+    <div class="chart-grid-3">
+      <div class="chart-card">
+        <div class="chart-card-title">月度完成金额 vs 目标 vs 去年同期（万元）</div>
+        <div class="chart-box" id="chart-monthly-line" style="height:320px;"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">1-3月各月达成率</div>
+        <div class="chart-box" id="chart-monthly-bar" style="height:320px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 大区对比 -->
+  <div class="section">
+    <div class="section-title">大区销售进度对比</div>
+    <div class="chart-grid-2">
+      <div class="chart-card">
+        <div class="chart-card-title">各大区：全年目标 vs 今年累计（万元）</div>
+        <div class="chart-box" id="chart-region-bar" style="height:300px;"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-title">各大区进度达成率</div>
+        <div class="chart-box" id="chart-region-rate" style="height:300px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 大区汇总表 -->
+  <div class="section">
+    <div class="section-title">大区预算进度汇总</div>
+    <div class="table-card">
+      <div class="table-card-header">
+        <span>各大区销售数据汇总</span>
+        <span style="font-size:12px;opacity:.7;">金额单位：万元</span>
+      </div>
+      <div class="table-scroll">
+        <table id="region-table">
+          <thead>
+            <tr>
+              <th>大区</th>
+              <th>全年目标</th>
+              <th>1-3月期间目标</th>
+              <th>今年累计完成</th>
+              <th>去年同期</th>
+              <th>进度达成率</th>
+              <th>同比增长</th>
+            </tr>
+          </thead>
+          <tbody id="region-tbody"></tbody>
+          <tfoot id="region-tfoot"></tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 网点明细 -->
+  <div class="section">
+    <div class="section-title">网点进度明细</div>
+    <div style="margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap;" id="region-filter-btns"></div>
+    <div class="table-card">
+      <div class="table-card-header">
+        <span>各网点销售进度明细</span>
+        <span style="font-size:12px;opacity:.7;">金额单位：万元 · 进度达成率 = 今年累计 ÷ 1-3月期间目标</span>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>大区</th>
+              <th>网点</th>
+              <th>全年目标</th>
+              <th>1-3月期间目标</th>
+              <th>今年累计</th>
+              <th>去年同期</th>
+              <th>进度达成率</th>
+            </tr>
+          </thead>
+          <tbody id="site-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  数据来源：销售系统 · 生成时间：2026-03-31 · 仅供内部参考
+</div>
+
+<script>
+// ─── 原始数据 ──────────────────────────────────────────────────────────────────
+const total = {"全年目标":4127332823.58,"期间目标":1031833205.895,"今年累计":882990543.62,"去年同期":1049069430.34,"去年全年":3796731025.82,"进度达成率":0.8557,"同比增长":-0.1583};
+
+const regionData = [{"大区":"华北","全年目标":836818171.05,"去年全年":682956068.92,"今年累计":149994474.69,"期间目标":209204542.76,"去年同期":174263925.29,"进度达成率":0.7170,"同比增长":-0.1393},{"大区":"华东","全年目标":899759722.95,"去年全年":721310728.5,"今年累计":171176380.6,"期间目标":224939930.74,"去年同期":215767449.07,"进度达成率":0.7610,"同比增长":-0.2067},{"大区":"华南","全年目标":719327855.42,"去年全年":598266931.1,"今年累计":146757016.49,"期间目标":179831963.86,"去年同期":171578972.4,"进度达成率":0.8161,"同比增长":-0.1447},{"大区":"华西","全年目标":850733074.16,"去年全年":1264337438.43,"今年累计":283245660.78,"期间目标":212683268.54,"去年同期":330746313.1,"进度达成率":1.3318,"同比增长":-0.1436},{"大区":"线上","全年目标":489419800,"去年全年":278401562.72,"今年累计":74717113.12,"期间目标":122354950,"去年同期":51919889.94,"进度达成率":0.6107,"同比增长":0.4391},{"大区":"其他","全年目标":331274200,"去年全年":251458296.15,"今年累计":57099897.94,"期间目标":82818550,"去年同期":104792880.54,"进度达成率":0.6895,"同比增长":-0.4551}];
+
+const monthlyData = [{"月份":1,"月度目标":343944401.97,"去年金额":459454937.2,"今年金额":532978740.53,"达成率":1.5496,"同比":0.16},{"月份":2,"月度目标":343944401.97,"去年金额":201197705.36,"今年金额":160702323.75,"达成率":0.4672,"同比":-0.2013},{"月份":3,"月度目标":343944401.97,"去年金额":388416787.78,"今年金额":189309479.34,"达成率":0.5504,"同比":-0.5126},{"月份":4,"月度目标":343944401.97,"去年金额":250610033.34,"今年金额":null},{"月份":5,"月度目标":343944401.97,"去年金额":296937044.77,"今年金额":null},{"月份":6,"月度目标":343944401.97,"去年金额":513519612.42,"今年金额":null},{"月份":7,"月度目标":343944401.97,"去年金额":168984441.42,"今年金额":null},{"月份":8,"月度目标":343944401.97,"去年金额":232424164.8,"今年金额":null},{"月份":9,"月度目标":343944401.97,"去年金额":383581438.78,"今年金额":null},{"月份":10,"月度目标":343944401.97,"去年金额":263016559.31,"今年金额":null},{"月份":11,"月度目标":343944401.97,"去年金额":311616026.9,"今年金额":null},{"月份":12,"月度目标":343944401.97,"去年金额":326972273.74,"今年金额":null}];
+
+const siteData = [{"大区":"华北","网点名称":"山东","全年目标":242999635.58,"今年累计":46531763.45,"期间目标":60749908.9,"去年同期":49205105.47,"进度达成率":0.766},{"大区":"华北","网点名称":"北京","全年目标":174692394.89,"今年累计":29282818.36,"期间目标":43673098.72,"去年同期":38150162.01,"进度达成率":0.6705},{"大区":"华北","网点名称":"河北","全年目标":123502805.04,"今年累计":21870997.16,"期间目标":30875701.26,"去年同期":27440724.07,"进度达成率":0.7084},{"大区":"华北","网点名称":"辽宁","全年目标":98516424.05,"今年累计":14666639.53,"期间目标":24629106.01,"去年同期":16992251.46,"进度达成率":0.5955},{"大区":"华北","网点名称":"黑龙江","全年目标":54122833.18,"今年累计":11084909.63,"期间目标":13530708.3,"去年同期":11542764.4,"进度达成率":0.8192},{"大区":"华北","网点名称":"山西","全年目标":54866211.32,"今年累计":10474149.55,"期间目标":13716552.83,"去年同期":12870468.7,"进度达成率":0.7636},{"大区":"华北","网点名称":"天津","全年目标":40300219.77,"今年累计":7257952.66,"期间目标":10075054.94,"去年同期":7271985.01,"进度达成率":0.7204},{"大区":"华北","网点名称":"吉林","全年目标":31145755.71,"今年累计":6266853.56,"期间目标":7786438.93,"去年同期":6582400.7,"进度达成率":0.8048},{"大区":"华北","网点名称":"内蒙古","全年目标":16671891.51,"今年累计":2558390.79,"期间目标":4167972.88,"去年同期":4208063.47,"进度达成率":0.6138},{"大区":"华东","网点名称":"浙江","全年目标":356190008.28,"今年累计":67376711.12,"期间目标":89047502.07,"去年同期":87958507.74,"进度达成率":0.7566},{"大区":"华东","网点名称":"江苏","全年目标":248354520.48,"今年累计":47048619.57,"期间目标":62088630.12,"去年同期":55421525.19,"进度达成率":0.7578},{"大区":"华东","网点名称":"上海","全年目标":227396910.46,"今年累计":44223326.47,"期间目标":56849227.62,"去年同期":57291960.65,"进度达成率":0.7779},{"大区":"华东","网点名称":"安徽","全年目标":67818283.73,"今年累计":12527723.44,"期间目标":16954570.93,"去年同期":15095455.49,"进度达成率":0.7389},{"大区":"华南","网点名称":"广东","全年目标":391378491.41,"今年累计":73134857.14,"期间目标":97844622.85,"去年同期":86614405.23,"进度达成率":0.7475},{"大区":"华南","网点名称":"湖南","全年目标":129396329.93,"今年累计":37339869.67,"期间目标":32349082.48,"去年同期":35957783.67,"进度达成率":1.1543},{"大区":"华南","网点名称":"福建","全年目标":130625208.67,"今年累计":24153089.82,"期间目标":32656302.17,"去年同期":29849449.14,"进度达成率":0.7396},{"大区":"华南","网点名称":"江西","全年目标":55214288.34,"今年累计":9823706.7,"期间目标":13803572.09,"去年同期":15198612.55,"进度达成率":0.7117},{"大区":"华南","网点名称":"海南","全年目标":12713537.07,"今年累计":2305493.16,"期间目标":3178384.27,"去年同期":3958721.81,"进度达成率":0.7254},{"大区":"华西","网点名称":"重庆","全年目标":167738264.46,"今年累计":153484922.14,"期间目标":41934566.11,"去年同期":179210990.57,"进度达成率":3.6601},{"大区":"华西","网点名称":"河南","全年目标":154346801.64,"今年累计":31702058.61,"期间目标":38586700.41,"去年同期":38248906.35,"进度达成率":0.8216},{"大区":"华西","网点名称":"四川","全年目标":117089834.18,"今年累计":20313633.01,"期间目标":29272458.54,"去年同期":21777694.65,"进度达成率":0.694},{"大区":"华西","网点名称":"湖北","全年目标":105562590.5,"今年累计":19119373.87,"期间目标":26390647.62,"去年同期":20133671.31,"进度达成率":0.7245},{"大区":"华西","网点名称":"广西","全年目标":79236928.94,"今年累计":15624613.15,"期间目标":19809232.24,"去年同期":17239691.82,"进度达成率":0.7888},{"大区":"华西","网点名称":"云南","全年目标":52046284.08,"今年累计":12253741.95,"期间目标":13011571.02,"去年同期":17672116.28,"进度达成率":0.9418},{"大区":"华西","网点名称":"陕西","全年目标":64856299.16,"今年累计":10161130.04,"期间目标":16214074.79,"去年同期":16707008.82,"进度达成率":0.6267},{"大区":"华西","网点名称":"贵州","全年目标":48703099.42,"今年累计":8445935.07,"期间目标":12175774.86,"去年同期":9045982.5,"进度达成率":0.6937},{"大区":"华西","网点名称":"甘肃","全年目标":23809807.99,"今年累计":4519576.67,"期间目标":5952452,"去年同期":4109009.93,"进度达成率":0.7593},{"大区":"华西","网点名称":"西藏","全年目标":5061190.99,"今年累计":2990474.87,"期间目标":1265297.75,"去年同期":849142.01,"进度达成率":2.3635},{"大区":"华西","网点名称":"新疆","全年目标":22250482.32,"今年累计":2987885.03,"期间目标":5562620.58,"去年同期":4234852.79,"进度达成率":0.5371},{"大区":"华西","网点名称":"宁夏","全年目标":5379413.32,"今年累计":1051418.69,"期间目标":1344853.33,"去年同期":583204.12,"进度达成率":0.7818},{"大区":"华西","网点名称":"青海","全年目标":4652077.16,"今年累计":590897.68,"期间目标":1163019.29,"去年同期":934041.95,"进度达成率":0.5081},{"大区":"线上","网点名称":"B端-壹药网","全年目标":196305500,"今年累计":35444146.74,"期间目标":49076375,"去年同期":12983866.31,"进度达成率":0.7222},{"大区":"线上","网点名称":"B端-药师帮","全年目标":143833000,"今年累计":27654840.36,"期间目标":35958250,"去年同期":18978892.07,"进度达成率":0.7691},{"大区":"线上","网点名称":"C端-京东","全年目标":89627700,"今年累计":9337972.04,"期间目标":22406925,"去年同期":10836118.39,"进度达成率":0.4167},{"大区":"线上","网点名称":"C端-其他","全年目标":17820999.99,"今年累计":2011656.11,"期间目标":4455250,"去年同期":2361664.86,"进度达成率":0.4515},{"大区":"线上","网点名称":"C端-阿里","全年目标":41832600,"今年累计":268497.87,"期间目标":10458150,"去年同期":6759348.31,"进度达成率":0.0257},{"大区":"其他","网点名称":"KA","全年目标":331274200,"今年累计":57099897.94,"期间目标":82818550,"去年同期":104792880.54,"进度达成率":0.6895}];
+
+// ─── 工具函数 ──────────────────────────────────────────────────────────────────
+const fmt = (v, d=1) => v == null ? '—' : (v/10000).toFixed(d).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+const fmtPct = v => v == null ? '—' : (v*100).toFixed(1) + '%';
+const fmtSign = v => v == null ? '—' : (v>=0?'+':'') + (v*100).toFixed(1) + '%';
+
+function pctColor(v) {
+  if (v == null) return '#aaa';
+  if (v >= 1.0) return '#27ae60';
+  if (v >= 0.8) return '#f39c12';
+  return '#e74c3c';
+}
+function progressBar(v, max=1.5) {
+  if (v == null) return '—';
+  const pct = Math.min(v / max * 100, 100);
+  const color = pctColor(v);
+  return `<div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar" style="width:${pct}%;background:${color}"></div></div>
+    <span class="progress-label" style="color:${color}">${fmtPct(v)}</span>
+  </div>`;
+}
+
+// ─── KPI Cards ────────────────────────────────────────────────────────────────
+const kpiContainer = document.getElementById('kpi-cards');
+const kpis = [
+  { label:'全年销售目标', value:(total['全年目标']/1e8).toFixed(2)+' 亿', sub:'2026年全年合计目标', badge:'目标', cls:'', icon:'🎯', bCls:'badge-blue' },
+  { label:'1-3月累计完成', value:(total['今年累计']/1e8).toFixed(2)+' 亿', sub:'今年1至3月实际完成金额', badge:'累计', cls:'', icon:'📈', bCls:'badge-blue' },
+  { label:'进度达成率', value:fmtPct(total['进度达成率']), sub:'今年累计 ÷ 1-3月期间目标', badge: total['进度达成率']>=1?'超额':'未达', cls: total['进度达成率']>=1?'positive':'', icon:'📊', bCls: total['进度达成率']>=1?'badge-good':'badge-warn' },
+  { label:'同比增长（vs去年同期）', value:fmtSign(total['同比增长']), sub:'对比去年1-3月', badge: total['同比增长']>=0?'增长':'下降', cls: total['同比增长']>=0?'positive':'negative', icon:'📉', bCls: total['同比增长']>=0?'badge-good':'badge-bad' },
+];
+kpis.forEach(k => {
+  kpiContainer.innerHTML += `
+  <div class="kpi-card ${k.cls}">
+    <span class="kpi-badge ${k.bCls}">${k.badge}</span>
+    <div class="kpi-label">${k.label}</div>
+    <div class="kpi-value">${k.value}</div>
+    <div class="kpi-sub">${k.sub}</div>
+    <div class="kpi-icon">${k.icon}</div>
+  </div>`;
+});
+
+// ─── 月度折线图 ────────────────────────────────────────────────────────────────
+const monthLabels = monthlyData.map(d => d['月份']+'月');
+const targetLine = monthlyData.map(d => +(d['月度目标']/10000).toFixed(1));
+const lastYear   = monthlyData.map(d => +(d['去年金额']/10000).toFixed(1));
+const thisYear   = monthlyData.map(d => d['今年金额'] ? +(d['今年金额']/10000).toFixed(1) : null);
+
+const lineChart = echarts.init(document.getElementById('chart-monthly-line'));
+lineChart.setOption({
+  tooltip: { trigger:'axis', formatter: params => {
+    let s = `<b>${params[0].axisValue}</b><br/>`;
+    params.forEach(p => { if(p.value!=null) s += `${p.marker}${p.seriesName}：<b>${p.value.toLocaleString()}</b> 万元<br/>`; });
+    return s;
+  }},
+  legend: { bottom:0, itemWidth:14, textStyle:{fontSize:12} },
+  grid: { top:20, left:60, right:20, bottom:50 },
+  xAxis: { type:'category', data:monthLabels, axisLabel:{fontSize:12} },
+  yAxis: { type:'value', axisLabel:{formatter:v=>v>=10000?+(v/10000).toFixed(0)+'亿':v+'万', fontSize:11}, splitLine:{lineStyle:{color:'#eee'}} },
+  series: [
+    { name:'月度目标', type:'line', data:targetLine, smooth:true, symbol:'circle', symbolSize:6,
+      lineStyle:{color:'#bdc3c7',width:2,type:'dashed'}, itemStyle:{color:'#bdc3c7'} },
+    { name:'去年同期', type:'line', data:lastYear, smooth:true, symbol:'circle', symbolSize:6,
+      lineStyle:{color:'#95a5a6',width:2}, itemStyle:{color:'#95a5a6'},
+      areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:'rgba(149,165,166,0.15)'},{offset:1,color:'rgba(149,165,166,0)'}]}} },
+    { name:'今年实际', type:'line', data:thisYear, smooth:true, symbol:'circle', symbolSize:8,
+      lineStyle:{color:'#2e75b6',width:3}, itemStyle:{color:'#2e75b6'},
+      areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:'rgba(46,117,182,0.25)'},{offset:1,color:'rgba(46,117,182,0)'}]}} },
+  ]
+});
+
+// ─── 月度达成率柱图 ────────────────────────────────────────────────────────────
+const ytdMonths = monthlyData.filter(d => d['达成率'] != null && d['月份'] <= 3);
+const barChart = echarts.init(document.getElementById('chart-monthly-bar'));
+barChart.setOption({
+  tooltip: { trigger:'axis', formatter: p => `${p[0].axisValue}<br/>${p[0].marker}达成率：<b>${(p[0].value*100).toFixed(1)}%</b>` },
+  grid: { top:30, left:60, right:20, bottom:40 },
+  xAxis: { type:'category', data:ytdMonths.map(d=>d['月份']+'月'), axisLabel:{fontSize:13} },
+  yAxis: { type:'value', axisLabel:{formatter:v=>(v*100).toFixed(0)+'%',fontSize:11}, max:2, splitLine:{lineStyle:{color:'#eee'}} },
+  series: [{
+    type:'bar', barWidth:'50%',
+    data: ytdMonths.map(d => ({
+      value: d['达成率'],
+      itemStyle: { color: d['达成率']>=1?'#27ae60': d['达成率']>=0.8?'#f39c12':'#e74c3c', borderRadius:[6,6,0,0] }
+    })),
+    label: { show:true, position:'top', formatter: p => (p.value*100).toFixed(1)+'%', fontSize:13, fontWeight:700 },
+    markLine: { data:[{yAxis:1, lineStyle:{color:'#27ae60',width:2,type:'dashed'}, label:{formatter:'100%达成', position:'end', color:'#27ae60',fontSize:11}}] }
+  }]
+});
+
+// ─── 大区对比柱图 ──────────────────────────────────────────────────────────────
+const regionNames = regionData.map(d=>d['大区']);
+const regionBarChart = echarts.init(document.getElementById('chart-region-bar'));
+regionBarChart.setOption({
+  tooltip: { trigger:'axis', formatter: p => {
+    let s = `<b>${p[0].axisValue}</b><br/>`;
+    p.forEach(item => { s += `${item.marker}${item.seriesName}：<b>${item.value.toLocaleString()}</b> 万元<br/>`; });
+    return s;
+  }},
+  legend: { bottom:0, itemWidth:12, textStyle:{fontSize:12} },
+  grid: { top:20, left:70, right:20, bottom:50 },
+  xAxis: { type:'category', data:regionNames, axisLabel:{fontSize:12} },
+  yAxis: { type:'value', axisLabel:{formatter:v=>v>=10000?+(v/10000).toFixed(0)+'亿':v+'万',fontSize:11}, splitLine:{lineStyle:{color:'#eee'}} },
+  series: [
+    { name:'全年目标', type:'bar', barGap:0, data:regionData.map(d=>+(d['全年目标']/10000).toFixed(0)),
+      itemStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:'rgba(46,117,182,0.9)'},{offset:1,color:'rgba(46,117,182,0.4)'}]}, borderRadius:[4,4,0,0]} },
+    { name:'今年累计', type:'bar', data:regionData.map(d=>+(d['今年累计']/10000).toFixed(0)),
+      itemStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:'rgba(231,76,60,0.9)'},{offset:1,color:'rgba(231,76,60,0.4)'}]}, borderRadius:[4,4,0,0]} },
+  ]
+});
+
+// ─── 大区达成率横向条形图 ──────────────────────────────────────────────────────
+const regionRateChart = echarts.init(document.getElementById('chart-region-rate'));
+const sorted = [...regionData].sort((a,b) => a['进度达成率']-b['进度达成率']);
+regionRateChart.setOption({
+  tooltip: { trigger:'axis', formatter: p => `<b>${p[0].axisValue}</b>：${(p[0].value*100).toFixed(1)}%` },
+  grid: { top:10, left:55, right:60, bottom:30 },
+  xAxis: { type:'value', max:1.5, axisLabel:{formatter:v=>(v*100).toFixed(0)+'%',fontSize:11}, splitLine:{lineStyle:{color:'#eee'}} },
+  yAxis: { type:'category', data:sorted.map(d=>d['大区']), axisLabel:{fontSize:12} },
+  series: [{
+    type:'bar', barWidth:'55%',
+    data: sorted.map(d => ({
+      value: d['进度达成率'],
+      itemStyle: { color: d['进度达成率']>=1?'#27ae60': d['进度达成率']>=0.8?'#f39c12':'#e74c3c', borderRadius:[0,4,4,0] }
+    })),
+    label: { show:true, position:'right', formatter:p=>(p.value*100).toFixed(1)+'%', fontSize:12, fontWeight:700 },
+    markLine: { data:[{xAxis:1, lineStyle:{color:'#27ae60',width:2,type:'dashed'}}] }
+  }]
+});
+
+// ─── 大区汇总表 ────────────────────────────────────────────────────────────────
+const regionTbody = document.getElementById('region-tbody');
+regionData.forEach(d => {
+  const rate = d['进度达成率'];
+  const yoy = d['同比增长'];
+  regionTbody.innerHTML += `<tr>
+    <td><span class="region-tag rt-${d['大区']}">${d['大区']}</span></td>
+    <td>${fmt(d['全年目标'])}</td>
+    <td>${fmt(d['期间目标'])}</td>
+    <td><b>${fmt(d['今年累计'])}</b></td>
+    <td>${fmt(d['去年同期'])}</td>
+    <td>${progressBar(rate)}</td>
+    <td><span class="tag ${yoy>=0?'tag-green':'tag-red'}">${fmtSign(yoy)}</span></td>
+  </tr>`;
+});
+document.getElementById('region-tfoot').innerHTML = `<tr class="tfoot-row">
+  <td>全国合计</td>
+  <td>${fmt(total['全年目标'])}</td>
+  <td>${fmt(total['期间目标'])}</td>
+  <td>${fmt(total['今年累计'])}</td>
+  <td>${fmt(total['去年同期'])}</td>
+  <td>${progressBar(total['进度达成率'])}</td>
+  <td><span class="tag ${total['同比增长']>=0?'tag-green':'tag-red'}">${fmtSign(total['同比增长'])}</span></td>
+</tr>`;
+
+// ─── 网点明细表 + 筛选 ────────────────────────────────────────────────────────
+const regions = ['全部', ...new Set(siteData.map(d=>d['大区']))];
+const filterContainer = document.getElementById('region-filter-btns');
+let currentFilter = '全部';
+
+regions.forEach(r => {
+  const btn = document.createElement('button');
+  btn.textContent = r;
+  btn.style.cssText = `padding:6px 16px;border-radius:20px;border:1.5px solid #dce6f0;cursor:pointer;font-size:13px;font-weight:600;transition:all .2s;background:${r===currentFilter?'#1a3a5c':'#fff'};color:${r===currentFilter?'#fff':'#555'};`;
+  btn.onclick = () => {
+    currentFilter = r;
+    document.querySelectorAll('#region-filter-btns button').forEach(b => {
+      const isActive = b.textContent === r;
+      b.style.background = isActive ? '#1a3a5c' : '#fff';
+      b.style.color = isActive ? '#fff' : '#555';
+    });
+    renderSiteTable();
+  };
+  filterContainer.appendChild(btn);
+});
+
+function renderSiteTable() {
+  const tbody = document.getElementById('site-tbody');
+  const filtered = currentFilter === '全部' ? siteData : siteData.filter(d => d['大区'] === currentFilter);
+  tbody.innerHTML = '';
+  filtered.forEach((d, idx) => {
+    const rate = d['进度达成率'];
+    const highlight = rate >= 3 ? 'rank-1' : '';
+    tbody.innerHTML += `<tr>
+      <td><span class="region-tag rt-${d['大区']}">${d['大区']}</span></td>
+      <td class="${highlight}">${d['网点名称']}</td>
+      <td>${fmt(d['全年目标'])}</td>
+      <td>${fmt(d['期间目标'])}</td>
+      <td><b>${fmt(d['今年累计'])}</b></td>
+      <td>${fmt(d['去年同期'])}</td>
+      <td>${progressBar(rate, 1.5)}</td>
+    </tr>`;
+  });
+}
+renderSiteTable();
+
+// ─── 响应式 ───────────────────────────────────────────────────────────────────
+window.addEventListener('resize', () => {
+  [lineChart, barChart, regionBarChart, regionRateChart].forEach(c => c.resize());
+});
+</script>
+</body>
+</html>
