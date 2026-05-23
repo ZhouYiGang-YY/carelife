@@ -1,0 +1,3059 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>理论300题</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    background: #f5f7fa;
+    color: #222;
+    margin: 0;
+    padding: 20px;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  h1 {
+    text-align: center;
+    font-size: 24px;
+    color: #1a73e8;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 14px;
+  }
+  .section-title {
+    background: #1a73e8;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 17px;
+    font-weight: bold;
+    margin: 30px 0 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .question-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    border-left: 4px solid #1a73e8;
+    transition: box-shadow 0.2s;
+  }
+  .question-card:hover {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.13);
+  }
+  .q-num {
+    color: #1a73e8;
+    font-weight: bold;
+    margin-right: 4px;
+  }
+  .q-text {
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    margin: 8px 0 10px;
+    padding-left: 8px;
+    font-size: 14px;
+    color: #444;
+  }
+  .option-item {
+    min-width: 180px;
+  }
+  .answer-row {
+    margin-top: 8px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .answer-label {
+    color: #888;
+    font-size: 13px;
+  }
+  .answer-val {
+    color: #16a34a;
+    font-weight: bold;
+    font-size: 15px;
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+    border-radius: 4px;
+    padding: 2px 10px;
+  }
+  .toc {
+    background: #fff;
+    border-radius: 8px;
+    padding: 16px 24px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    margin-bottom: 28px;
+  }
+  .toc h2 { font-size: 16px; color: #1a73e8; margin: 0 0 10px; }
+  .toc ul { margin: 0; padding-left: 18px; }
+  .toc a { color: #1a73e8; text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  .stats {
+    text-align: center;
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 6px;
+  }
+  @media (max-width: 600px) {
+    .option-item { min-width: 100%; }
+    body { padding: 10px; }
+  }
+  /* 搜索框 */
+  .search-wrap {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  #searchInput {
+    width: 360px;
+    max-width: 90%;
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+  }
+  #searchInput:focus { border-color: #1a73e8; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+<h1>理论300题</h1>
+<p class="subtitle">人工智能训练师 · 理论考试题库</p>
+<div class="search-wrap">
+  <input type="text" id="searchInput" placeholder="搜索题目关键词..." oninput="filterQuestions()" />
+</div>
+<div class="toc"><h2>目录</h2><ul>
+<li><a href="#一_判断题_1__12_">一、判断题（1--12） （12 题）</a></li>
+<li><a href="#二_单选题_13__60_">二、单选题（13--60） （48 题）</a></li>
+<li><a href="#三_判断题_61__72_">三、判断题（61--72） （12 题）</a></li>
+<li><a href="#四_单选题_73__120_">四、单选题（73--120） （48 题）</a></li>
+<li><a href="#五_判断题_121__132_">五、判断题（121--132） （12 题）</a></li>
+<li><a href="#六_单选题_133__180_">六、单选题（133--180） （48 题）</a></li>
+<li><a href="#七_判断题_181__192_">七、判断题（181--192） （12 题）</a></li>
+<li><a href="#八_单选题_193__240_">八、单选题（193--240） （48 题）</a></li>
+<li><a href="#九_判断题_241__252_">九、判断题（241--252） （12 题）</a></li>
+<li><a href="#十_单选题_253__300_">十、单选题（253--300） （48 题）</a></li>
+</ul></div>
+<p class="stats">共 300 道题</p>
+<div class="section-title" id="一_判断题_1__12_">📚 一、判断题（1--12）</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">1.</span>知识库管理系统主要用于管理社交网络信息类型的知识。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">2.</span>逻辑树分析法的目的是把复杂的问题简单化。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">3.</span>为了适应人工智能领域的发展，训练师应该做的是保持对新技术的了解。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">4.</span>数据采集方法中，数据集是指经过规范化整理、工程化标注的具有统一格式的数据集合。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">5.</span>在影像标注中，我们主要采用的技术是 DR 技术。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">6.</span>在出行行业中，数据标注的常见应用有通过描点的方式进行区域划分。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">7.</span>互联网数据采集的主要实现方法是使用了数据爬虫和网页解析这类技术。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">8.</span>计算机启动过程中，正确的操作是等待电脑自检完成后，按任意键继续。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">9.</span>客服录音数据标注中，被认为是无效语音的是语音只有"嗯""啊""呃"的语气词。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">10.</span>在计算机中，用于输入文字和命令的外部设备是鼠标。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">11.</span>从业务流程分析角度来评价业务流程是否合理，最直观的方法是日常运营分析。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">12.</span>分类标注在图像标注中通常用于自然风景照片标记这类的项目。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="section-title" id="二_单选题_13__60_">📚 二、单选题（13--60）</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">13.</span>在文本标注工具中，帮助代码更易读，使得代码具有高亮显示的功能是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 自动完成</div>
+    <div class="option-item">B. 多标签编辑</div>
+    <div class="option-item">C. 查找和替换</div>
+    <div class="option-item">D. 语法高亮</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">14.</span>数据标注的第一步是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 数据前期处理</div>
+    <div class="option-item">B. 数据获取</div>
+    <div class="option-item">C. 数据预识别</div>
+    <div class="option-item">D. 结果输出</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">15.</span>在应用程序的使用中，（）是一个基本操作。</div>
+  <div class="options">
+    <div class="option-item">A. 清理计算机硬盘</div>
+    <div class="option-item">B. 安装新的硬件设备</div>
+    <div class="option-item">C. 打开一个应用程序</div>
+    <div class="option-item">D. 拔掉计算机电源线</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">16.</span>价值链分析法的目的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 优化业务流程，形成企业竞争优势</div>
+    <div class="option-item">B. 找出客户需求信息与规则</div>
+    <div class="option-item">C. 整合企业物流、信息流及资金流</div>
+    <div class="option-item">D. 彻底颠覆原有的业务流程</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">17.</span>拥有功能强大的电子表格程序、可以通过多种形式的图形、图表表现数据、并支持 VBA 编程是（）。</div>
+  <div class="options">
+    <div class="option-item">A. Excel</div>
+    <div class="option-item">B. Python</div>
+    <div class="option-item">C. MapReduce</div>
+    <div class="option-item">D. MicrosoftOffice</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">18.</span>数据分析中，（）是为了保证数据的一致性和有效性。</div>
+  <div class="options">
+    <div class="option-item">A. 数据展现</div>
+    <div class="option-item">B. 数据收集</div>
+    <div class="option-item">C. 数据处理</div>
+    <div class="option-item">D. 明确需求</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">19.</span>图像数据的表示方式是通过（）来表示的。</div>
+  <div class="options">
+    <div class="option-item">A. 字符</div>
+    <div class="option-item">B. 矢量</div>
+    <div class="option-item">C. 像素的灰度值</div>
+    <div class="option-item">D. 二进制码</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">20.</span>通过 Internet 提供软件，用户无需购买软件，而是租用基于 Web 的软件来管理企业经营活动的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 软件即服务(SaaS)</div>
+    <div class="option-item">B. 平台即服务(PaaS)</div>
+    <div class="option-item">C. 基础设施即服务(IaaS)</div>
+    <div class="option-item">D. 云存储服务</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">21.</span>语言学主要研究的方面是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 句子的长度和复杂程度</div>
+    <div class="option-item">B. 语言的发音和音标</div>
+    <div class="option-item">C. 文本的语境和背景</div>
+    <div class="option-item">D. 文本的情感和情绪</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">22.</span>在 PowerPoint 中创建新演示文稿的正确步骤是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 打开 PowerPoint，选择"新建"按钮，然后选择空白文稿</div>
+    <div class="option-item">B. 打开 Word，选择"新建"按钮，然后选择空白文档</div>
+    <div class="option-item">C. 打开 Excel，选择"新建"按钮，然后选择空白工作簿</div>
+    <div class="option-item">D. 打开 PowerPoint，选择"打开"按钮，然后选择模板文稿</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">23.</span>视频文件格式中，（）的体积过于庞大，不适合于长时间的视频内容。</div>
+  <div class="options">
+    <div class="option-item">A. AVI 格式</div>
+    <div class="option-item">B. MPEG 格式</div>
+    <div class="option-item">C. WMV 格式</div>
+    <div class="option-item">D. FLV 格式</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">24.</span>属于数据质量评估的定性方法的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 用户反馈法</div>
+    <div class="option-item">B. 模糊综合评估法</div>
+    <div class="option-item">C. 层次分析法</div>
+    <div class="option-item">D. 文献下载量评估法</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">25.</span>视频标注主要用于训练的模型类型是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 深度学习和机器学习模型</div>
+    <div class="option-item">B. 图像处理模型</div>
+    <div class="option-item">C. 自动驾驶模型</div>
+    <div class="option-item">D. 安防监控模型</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">26.</span>适用于 Mac 平台、支持矩形标注和分类标注等任务的视频标注工具是（）。</div>
+  <div class="options">
+    <div class="option-item">A. VATIC</div>
+    <div class="option-item">B. Labelbox</div>
+    <div class="option-item">C. VGG Image Annotator(VIA)</div>
+    <div class="option-item">D. RectLabel</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">27.</span>语音标注主要用于（）两种模型。</div>
+  <div class="options">
+    <div class="option-item">A. 机器翻译模型和文本分类模型</div>
+    <div class="option-item">B. 语音转文字(ASR)模型和文字转语音(TTS)模型</div>
+    <div class="option-item">C. 机器学习模型和深度学习模型</div>
+    <div class="option-item">D. 图像识别模型和声纹识别模型</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">28.</span>在人脸数据采集规范中，属于对采集环境描述的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 人员分布</div>
+    <div class="option-item">B. 采集设备</div>
+    <div class="option-item">C. 图像数据格式</div>
+    <div class="option-item">D. 采集场景</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">29.</span>视频数据标注中，连续帧标注的优势是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 能够更好地利用各帧的背景来识别对象</div>
+    <div class="option-item">B. 不需要使用自动化工具</div>
+    <div class="option-item">C. 每分钟处理的帧数较少</div>
+    <div class="option-item">D. 可以更好地保持所捕获信息的连续性和流畅性</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">30.</span>适用于 PAL 制式电视系统的帧速率是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 15 帧</div>
+    <div class="option-item">B. 25 帧</div>
+    <div class="option-item">C. 30 帧</div>
+    <div class="option-item">D. 60 帧</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">31.</span>实时检验在数据标注任务中的主要作用是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 对数据集进行分段标注</div>
+    <div class="option-item">B. 发现问题并解决问题</div>
+    <div class="option-item">C. 安排数据标注任务培训</div>
+    <div class="option-item">D. 保证整体标注任务的流畅性</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">32.</span>关于 Word 的基础操作，正确的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 打开 Word 后只能新建空白文档，不能选择模板创建新文档</div>
+    <div class="option-item">B. 在文档中输入文字内容时不能进行编辑、删除、复制和剪切等操作</div>
+    <div class="option-item">C. 格式设置只包括字体和字号，不能设置颜色、加粗和斜体等</div>
+    <div class="option-item">D. 对齐方式只有左对齐和右对齐，没有居中对齐选项</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">33.</span>人工智能的图像识别能力本质是将图像转为（）。</div>
+  <div class="options">
+    <div class="option-item">A. 数字处理能力</div>
+    <div class="option-item">B. 语言处理能力</div>
+    <div class="option-item">C. 视觉处理能力</div>
+    <div class="option-item">D. 文字识别能力</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">34.</span>语音标注中，一条语音有两人同时说话，标注文字依据是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 主体说话人声音较大的部分</div>
+    <div class="option-item">B. 主体说话人声音较小的部分</div>
+    <div class="option-item">C. 两个人的声音取平均值</div>
+    <div class="option-item">D. 两个人的声音取中间部分</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">35.</span>在 Word 中，（）可以对单元格进行格式化。</div>
+  <div class="options">
+    <div class="option-item">A. 插入图片和表格</div>
+    <div class="option-item">B. 对齐和缩进设置</div>
+    <div class="option-item">C. 格式设置</div>
+    <div class="option-item">D. 保存文档</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">36.</span>图像标注的质量标准是根据（）来判定的。</div>
+  <div class="options">
+    <div class="option-item">A. 图像像素点的数量</div>
+    <div class="option-item">B. 图像色彩的饱和度</div>
+    <div class="option-item">C. 图像像素点与标注物边缘像素点的接近程度</div>
+    <div class="option-item">D. 图像的尺寸和分辨率</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">37.</span>自动化工具面世之前，视频标注效率不高的原因是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 视频帧率过高</div>
+    <div class="option-item">B. 缺乏标准图像标注技术</div>
+    <div class="option-item">C. 需要连续帧标注</div>
+    <div class="option-item">D. 提取视频中所有帧的过程费时昂贵</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">38.</span>语音标注的质量检验中，质检员需要关注的两个方面是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 文本内容与发音是否相符</div>
+    <div class="option-item">B. 标注区域的音标是否正确</div>
+    <div class="option-item">C. 是否有违背标注规范的错误</div>
+    <div class="option-item">D. 是否有重复标注的情况</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">39.</span>数据行业合作的主要目的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 增加数据的噪声和错误</div>
+    <div class="option-item">B. 整合、分析和管理数据资产</div>
+    <div class="option-item">C. 降低数据连接和处理的成本</div>
+    <div class="option-item">D. 提高数据的采集效率</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">40.</span>标注员在数据标注工作中的主要责任是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 对标注好的数据进行审核</div>
+    <div class="option-item">B. 对数据进行标注</div>
+    <div class="option-item">C. 对相关人员进行管理</div>
+    <div class="option-item">D. 对标注任务进行发放及回收</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">41.</span>文本标注必须有审核过程的原因是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 提高文本标注的速度</div>
+    <div class="option-item">B. 保证文本标注的准确性和一致性</div>
+    <div class="option-item">C. 缩小数据标注员的标注差异</div>
+    <div class="option-item">D. 减少标注的工作量</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">42.</span>数据清洗过程中，明确错误类型的方法主要有（）。</div>
+  <div class="options">
+    <div class="option-item">A. 数据备份和还原</div>
+    <div class="option-item">B. 统计、聚类或关联规则的方法</div>
+    <div class="option-item">C. 手动检查和数据样本分析</div>
+    <div class="option-item">D. 数据源分类处理和标准化处理</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">43.</span>视频数字化的目的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 实现音频信号的数字化</div>
+    <div class="option-item">B. 方便视频信号的存储和传输</div>
+    <div class="option-item">C. 模拟视频信号的生成</div>
+    <div class="option-item">D. 加快计算机的处理速度</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">44.</span>属于文件管理中的基本操作是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 网络连接</div>
+    <div class="option-item">B. 网页浏览</div>
+    <div class="option-item">C. 文件复制</div>
+    <div class="option-item">D. 电子邮件发送</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">45.</span>属性标注任务主要用于对文本数据中的（）进行标签分类。</div>
+  <div class="options">
+    <div class="option-item">A. 文章主题</div>
+    <div class="option-item">B. 文本情感</div>
+    <div class="option-item">C. 人物关系</div>
+    <div class="option-item">D. 图像内容</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">46.</span>诚实守信在职业活动中意味着（）。</div>
+  <div class="options">
+    <div class="option-item">A. 为了利益可以适当说谎</div>
+    <div class="option-item">B. 只需要对上级领导诚实</div>
+    <div class="option-item">C. 真实无欺、遵守承诺和契约</div>
+    <div class="option-item">D. 可以隐瞒工作中的失误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">47.</span>NLP 目前主要可以处理的任务类型是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 语音识别</div>
+    <div class="option-item">B. 图像处理</div>
+    <div class="option-item">C. 文本分类</div>
+    <div class="option-item">D. 声纹识别</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">48.</span>通过（），可以预览整个 PowerPoint 演示文稿。</div>
+  <div class="options">
+    <div class="option-item">A. 在"查看"菜单中选择"预览"，然后开始播放演示文稿</div>
+    <div class="option-item">B. 在"编辑"菜单中选择"预览"，然后开始播放演示文稿</div>
+    <div class="option-item">C. 在"格式"菜单中选择"预览"，然后开始播放演示文稿</div>
+    <div class="option-item">D. 在"幻灯片放映"菜单中选择"从头开始"，然后开始播放演示文稿</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">49.</span>可以帮助保护计算机免受恶意软件攻击的操作是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 更新操作系统</div>
+    <div class="option-item">B. 安装防病毒软件</div>
+    <div class="option-item">C. 使用快捷键 Ctrl+C</div>
+    <div class="option-item">D. 打印文档</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">50.</span>PDCA 法中的"D"指的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 计划</div>
+    <div class="option-item">B. 行动</div>
+    <div class="option-item">C. 检查</div>
+    <div class="option-item">D. 执行</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">51.</span>缺失数据处理中，权重法的主要作用是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 对缺失值进行处理的最原始、最简单的方式</div>
+    <div class="option-item">B. 增加完整数据的权重，减小偏差</div>
+    <div class="option-item">C. 用最可能的数值来插补缺失值</div>
+    <div class="option-item">D. 删除含有缺失值的记录</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">52.</span>文本标注中，制定文本标注规则的目的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 缩小数据标注员的工资差异</div>
+    <div class="option-item">B. 减少数据标注的工作量</div>
+    <div class="option-item">C. 统一标注的方式和标准</div>
+    <div class="option-item">D. 提高文本标注的速度</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">53.</span>语音输入的优势在于（）。</div>
+  <div class="options">
+    <div class="option-item">A. 可以自动生成电影字幕</div>
+    <div class="option-item">B. 可以摆脱生僻字和拼音障碍</div>
+    <div class="option-item">C. 可以识别说话人的身份</div>
+    <div class="option-item">D. 可以自动合成语音朗读</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">54.</span>图像标注人员需要具备的特点是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 快速理解标注任务</div>
+    <div class="option-item">B. 拥有相关领域的知识</div>
+    <div class="option-item">C. 创造新的标注方式</div>
+    <div class="option-item">D. 对标注数据的质量不负责</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">55.</span>可以同时标注图像、视频和文本的标注工具是（）。</div>
+  <div class="options">
+    <div class="option-item">A. LabelImg</div>
+    <div class="option-item">B. LabelBox</div>
+    <div class="option-item">C. VIA</div>
+    <div class="option-item">D. 精灵标注助手</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">56.</span>传感器数据采集主要通过（）的方式将信息传递给计算机。</div>
+  <div class="options">
+    <div class="option-item">A. 光信号</div>
+    <div class="option-item">B. 声波信号</div>
+    <div class="option-item">C. 数字信号和交换模拟信号</div>
+    <div class="option-item">D. 电波信号</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">57.</span>语音标注中的 ASA 语音转写指的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 将语音数据转写为图像数据</div>
+    <div class="option-item">B. 将语音数据转写为文字数据</div>
+    <div class="option-item">C. 将语音数据转写为数字数据</div>
+    <div class="option-item">D. 将语音数据转写为视频数据</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">58.</span>知识库的主要功能之一是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 知识构建与维护</div>
+    <div class="option-item">B. 知识存储和备份</div>
+    <div class="option-item">C. 数据采集和分析</div>
+    <div class="option-item">D. 网络连接和协作</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">59.</span>人工智能训练师应该致力于开发（）的人工智能系统。</div>
+  <div class="options">
+    <div class="option-item">A. 复杂而不可解释的系统</div>
+    <div class="option-item">B. 公正和公平的系统</div>
+    <div class="option-item">C. 只关注技术性能的系统</div>
+    <div class="option-item">D. 只关注经济效益的系统</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">60.</span>文本数据具有的特点是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 完全无结构</div>
+    <div class="option-item">B. 维度低</div>
+    <div class="option-item">C. 半结构化</div>
+    <div class="option-item">D. 数据量小</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="section-title" id="三_判断题_61__72_">📚 三、判断题（61--72）</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">61.</span>审核过程最好由与文本标注无关的人员来执行，以确保客观性。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">62.</span>文本分类、相似性检验、机器翻译、阅读理解、文档生成是 NLP 目前可以处理的任务。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">63.</span>cvat 是一款开源工具，支持对视频中目标进行跟踪标注。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">64.</span>数据分析的目的是将数据展示出来。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">65.</span>Notepad++不支持加载插件，只能使用其自带的功能。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">66.</span>金融行业中，文字翻译这类的数据标注并不是具有代表性的重要应用。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">67.</span>传感器数据采集中，温度也是信号运载信息的方式之一。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">68.</span>语音合成技术的主要作用是将语音转化为文字。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">69.</span>关系标注可以用于知识图谱训练的文本数据。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">70.</span>语音标注中常见的噪声包括背景音乐声和汽车嘀嗒声。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">71.</span>人工智能模型的透明度和可解释性特别重要的原因是便于理解和解释模型决策过程。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">72.</span>视频压缩算法与静态图像压缩算法在算法上有共同之处。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="section-title" id="四_单选题_73__120_">📚 四、单选题（73--120）</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">73.</span>客户关系分析法主要包括三个方面的分析，它们是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 客户细分、客户画像和市场分析</div>
+    <div class="option-item">B. 客户画像、客户行为分析和市场分析</div>
+    <div class="option-item">C. 客户细分、客户行为分析和企业需求分析</div>
+    <div class="option-item">D. 市场分析、客户行为分析和企业需求分析</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">74.</span>在语音情绪判定中，情绪信息是反应（）的一个重要行为信号。</div>
+  <div class="options">
+    <div class="option-item">A. 人类的性格</div>
+    <div class="option-item">B. 人类的语言能力</div>
+    <div class="option-item">C. 人类的情感状态</div>
+    <div class="option-item">D. 人类的身体健康</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">75.</span>会对机器学习训练造成干扰，导致训练不充分的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 数据集过大</div>
+    <div class="option-item">B. 高质量的数据集</div>
+    <div class="option-item">C. 数据集中存在大量数据"噪声"</div>
+    <div class="option-item">D. 数据集中的标签缺失</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">76.</span>图像标注主流的应用领域中不包括（）。</div>
+  <div class="options">
+    <div class="option-item">A. 车辆识别</div>
+    <div class="option-item">B. 机械影像</div>
+    <div class="option-item">C. 文字识别</div>
+    <div class="option-item">D. 医疗影像标注</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">77.</span>在缺失数据处理中，适用于定量数据的缺失值插补的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 同类均值插补</div>
+    <div class="option-item">B. 极大似然估计</div>
+    <div class="option-item">C. 均值插补</div>
+    <div class="option-item">D. 插补缺失值</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">78.</span>可以实现复制选中的文件或文本的操作是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 使用快捷键 Ctrl+X</div>
+    <div class="option-item">B. 使用快捷键 Ctrl+C</div>
+    <div class="option-item">C. 使用快捷键 Ctrl+V</div>
+    <div class="option-item">D. 使用快捷键</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">79.</span>对基础数据资源进行优选与评估的方法是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 第三方评测法</div>
+    <div class="option-item">B. 定性方法</div>
+    <div class="option-item">C. 定量方法</div>
+    <div class="option-item">D. 缺陷扣分法</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">80.</span>在文本数据采集中，采集的内容主要涵盖的语种是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 英语</div>
+    <div class="option-item">B. 意大利语</div>
+    <div class="option-item">C. 法语</div>
+    <div class="option-item">D. 所有语言</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">81.</span>知识库管理系统的推理系统主要完成的任务是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 对知识的插入、删除和修改</div>
+    <div class="option-item">B. 提取知识和推算新的知识</div>
+    <div class="option-item">C. 一致性检查和知识的演绎检索</div>
+    <div class="option-item">D. 知识的共享和知识安全</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">82.</span>Python 在数据处理中的主要优势是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 可以处理数量级从几 K 至几 T 的数据</div>
+    <div class="option-item">B. 支持 VBA 编程</div>
+    <div class="option-item">C. 可以运行在大规模集群上</div>
+    <div class="option-item">D. 具有较强的通用性和跨平台性</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">83.</span>以下选项中，（）是来自关系型数据库和数据仓库。</div>
+  <div class="options">
+    <div class="option-item">A. 大量人产生的数据</div>
+    <div class="option-item">B. 少量企业应用产生的数据</div>
+    <div class="option-item">C. 巨量机器产生的数据</div>
+    <div class="option-item">D. 传感器数据</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">84.</span>在 Excel 中，如果想实现对单元格内容的编辑和格式化，我们应该做的操作是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 创建和保存工作簿</div>
+    <div class="option-item">B. 输入数据</div>
+    <div class="option-item">C. 排序和筛选</div>
+    <div class="option-item">D. 查找和替换</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">85.</span>当业务流程指标数据优良但使用人数较少时，可以尝试对终端用户进行（）。</div>
+  <div class="options">
+    <div class="option-item">A. 日常运营分析</div>
+    <div class="option-item">B. 定期流程审核</div>
+    <div class="option-item">C. 横向对比分析优劣</div>
+    <div class="option-item">D. 终端用户数据反馈</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">86.</span>对比分析法的主要目的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 揭示不同部分的内在联系和规律</div>
+    <div class="option-item">B. 找出优化的方法</div>
+    <div class="option-item">C. 对两个或两个以上的数据进行比较</div>
+    <div class="option-item">D. 研究数据分析对象的特征</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">87.</span>在情感标注中，难易递增的情感分类中，最基础的分类是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 兴奋、萎靡和悲哀</div>
+    <div class="option-item">B. 正面、负面和中性(无情感)</div>
+    <div class="option-item">C. 一般高兴和很高兴</div>
+    <div class="option-item">D. 无感、开心和满足</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">88.</span>以下选项中，（）是人工智能训练师应该遵守的职业道德原则。</div>
+  <div class="options">
+    <div class="option-item">A. 最大化数据收集</div>
+    <div class="option-item">B. 忽视数据安全问题</div>
+    <div class="option-item">C. 保护个人隐私权</div>
+    <div class="option-item">D. 将数据用于商业牟利</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">89.</span>语音数据可应用的领域主要包括（）。</div>
+  <div class="options">
+    <div class="option-item">A. 电子邮件和音乐检索</div>
+    <div class="option-item">B. 语音合成和情感识别</div>
+    <div class="option-item">C. 语音识别和音乐检索</div>
+    <div class="option-item">D. 智能家居和车载终端</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">90.</span>图像预处理的主要目的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 对图像进行美化处理</div>
+    <div class="option-item">B. 增加图像的分辨率</div>
+    <div class="option-item">C. 查重处理，删除重复的图像，保留有用的图像</div>
+    <div class="option-item">D. 对图像进行压缩，减少文件大小</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">91.</span>七步分析法中的第四步是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 需要定位及陈述问题</div>
+    <div class="option-item">B. 问题分解</div>
+    <div class="option-item">C. 去非关键的影响因素</div>
+    <div class="option-item">D. 制定改善计划和解决计划</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">92.</span>在数据清洗过程中，识别错误实例的方法可以通过（）来实现。</div>
+  <div class="options">
+    <div class="option-item">A. 数据备份和还原</div>
+    <div class="option-item">B. 统计、聚类或关联规则的方法</div>
+    <div class="option-item">C. 手动检查和数据样本分析</div>
+    <div class="option-item">D. 数据源分类处理和标准化处理</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">93.</span>在以下云服务中，能将软件研发的平台作为一种服务提供给客户，并让用户能够通过 Internet 快速开发和操作 Web 或移动应用程序的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 软件即服务(SaaS)</div>
+    <div class="option-item">B. 平台即服务(PaaS)</div>
+    <div class="option-item">C. 基础设施即服务(laaS)</div>
+    <div class="option-item">D. 云存储服务</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">94.</span>应用程序经常无法正常运行，闪退或崩溃，造成这种故障的原因可能是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 内存不足</div>
+    <div class="option-item">B. 硬盘空间不足</div>
+    <div class="option-item">C. 声卡损坏</div>
+    <div class="option-item">D. 键盘连接错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">95.</span>文本数据中可能包含的非结构化数据类型是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 摘要和内容</div>
+    <div class="option-item">B. 标题和作者</div>
+    <div class="option-item">C. 出版日期和分类</div>
+    <div class="option-item">D. 长度和分类</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">96.</span>数据采集的目的决定了采集数据的（）。</div>
+  <div class="options">
+    <div class="option-item">A. 完整度</div>
+    <div class="option-item">B. 时效性</div>
+    <div class="option-item">C. 可信性</div>
+    <div class="option-item">D. 范围</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">97.</span>区域标注相比标识标牌要求更加精确的原因是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 区域标注需要进行图像滤波</div>
+    <div class="option-item">B. 区域标注边缘可以是柔性的</div>
+    <div class="option-item">C. 区域标注涉及图像分割</div>
+    <div class="option-item">D. 区域标注需要进行图像特征提取</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">98.</span>在 PowerPoint 中插入新的幻灯片的方式是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 在文件菜单中选择"插入"，然后选择"幻灯片"。</div>
+    <div class="option-item">B. 在编辑菜单中选择"插入"，然后选择"新幻灯片"。</div>
+    <div class="option-item">C. 在视图菜单中选择"插入"，然后选择"幻灯片"。</div>
+    <div class="option-item">D. 在格式菜单中选择"插入"，然后选择"新幻灯片"。</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">99.</span>知识库存储的知识以（）的方式组织。</div>
+  <div class="options">
+    <div class="option-item">A. 以数据和关系组织</div>
+    <div class="option-item">B. 以图像和实例组织</div>
+    <div class="option-item">C. 以文本和代码组织</div>
+    <div class="option-item">D. 以图表和图像组织</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">100.</span>在互联网上，可以通过付费购买来使用的数据集是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 仅包含文本数据的数据集</div>
+    <div class="option-item">B. 带有特定标签的数据集</div>
+    <div class="option-item">C. 不包含图像或视频的数据集</div>
+    <div class="option-item">D. 无偿提供的数据集</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">101.</span>根据人脸数据采集规范示例，该数据采集应包含至少（）的人脸数据。</div>
+  <div class="options">
+    <div class="option-item">A. 100 人</div>
+    <div class="option-item">B. 50 人</div>
+    <div class="option-item">C. 200 人</div>
+    <div class="option-item">D. 无法确定</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">102.</span>在计算机登录过程中，输入正确的用户名和密码是为了（）。</div>
+  <div class="options">
+    <div class="option-item">A. 防止计算机过热</div>
+    <div class="option-item">B. 加快计算机启动速度</div>
+    <div class="option-item">C. 保护个人隐私和数据安全</div>
+    <div class="option-item">D. 提高电脑屏幕亮度</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">103.</span>为了提高计算机的安全性，我们应该定期进行的操作是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 清理计算机内存</div>
+    <div class="option-item">B. 更新操作系统和程序</div>
+    <div class="option-item">C. 重装操作系统</div>
+    <div class="option-item">D. 删除所有文件</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">104.</span>一名质检员通常负责实时检验（）标注员的数据标注工作。</div>
+  <div class="options">
+    <div class="option-item">A. 2\~5 名</div>
+    <div class="option-item">B. 5\~10 名</div>
+    <div class="option-item">C. 10\~15 名</div>
+    <div class="option-item">D. 15\~20 名</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">105.</span>人工智能领域的训练师如果想更新知识，他可以（）。</div>
+  <div class="options">
+    <div class="option-item">A. 只参与专业培训</div>
+    <div class="option-item">B. 只参加研讨会</div>
+    <div class="option-item">C. 参与专业培训和研讨会</div>
+    <div class="option-item">D. 参与社区活动</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">106.</span>视频信号中包含的音频信号需要进行的处理是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 数字化</div>
+    <div class="option-item">B. 模拟化</div>
+    <div class="option-item">C. 压缩</div>
+    <div class="option-item">D. 采样</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">107.</span>使用单一图像法进行视频标注的问题是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 无法保持所捕获信息的连续性和流畅性</div>
+    <div class="option-item">B. 对象可能在连续帧中被错误归类</div>
+    <div class="option-item">C. 自动化工具无法识别视频中的对象</div>
+    <div class="option-item">D. 无法分析前一帧和后一帧中的像素</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">108.</span>在语音数据采集中，性别人数最多的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 男性</div>
+    <div class="option-item">B. 女性</div>
+    <div class="option-item">C. 男女比例相同</div>
+    <div class="option-item">D. 无法确定</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">109.</span>图像目标检测中，按照任务类型划分一般可以分为（）。</div>
+  <div class="options">
+    <div class="option-item">A. 拉框、多边形、线等</div>
+    <div class="option-item">B. 贴字、压字、贴图等</div>
+    <div class="option-item">C. 点击、拖拽、缩放等</div>
+    <div class="option-item">D. 查重、删除、保留等</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">110.</span>对于上述语音数据中的错误标注，将"不"字标注为了错误的读音，实际上是将"不"字的声调（）。</div>
+  <div class="options">
+    <div class="option-item">A. 从四声变为一声</div>
+    <div class="option-item">B. 从四声变为二声</div>
+    <div class="option-item">C. 从一声变为四声</div>
+    <div class="option-item">D. 从一声变为二声</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">111.</span>在以下标注工具中，适用于大型项目、标注形状包括多边形、矩形、线、点、嵌套分类的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. LabelImg</div>
+    <div class="option-item">B. LabelBox</div>
+    <div class="option-item">C. VIA</div>
+    <div class="option-item">D. 精灵标注助手</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">112.</span>在 Word 中进行拼写检查时，以下描述中正确的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 拼写检查功能只能检查中文拼写，不能检查英文拼写</div>
+    <div class="option-item">B. 拼写检查功能只能检查整篇文档的拼写错误，不能逐个单词检查</div>
+    <div class="option-item">C. 拼写检查功能可以及时发现并纠正拼写错误</div>
+    <div class="option-item">D. 拼写检查功能在 Word 中没有这个功能</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">113.</span>在语音标注中，遇到网络用语"灰常"时，正确的标注是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 灰常</div>
+    <div class="option-item">B. 非常</div>
+    <div class="option-item">C. 特别</div>
+    <div class="option-item">D. 很</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">114.</span>语义类异常中，存在重复数据指的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 数据中存在两个或两个以上表示同一个实体的元组</div>
+    <div class="option-item">B. 数据不能全面、无重复地表示客观世界的实体</div>
+    <div class="option-item">C. 一个元组不符合完整性约束规则</div>
+    <div class="option-item">D. 数据中出现矛盾，各个属性的取值违反这些取值的依赖关系</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">115.</span>为了确保公正和公平，人工智能训练师应该避免选择（）作为训练数据。</div>
+  <div class="options">
+    <div class="option-item">A. 大规模多样性的数据</div>
+    <div class="option-item">B. 只采用特定群体的数据</div>
+    <div class="option-item">C. 只采用中立数据</div>
+    <div class="option-item">D. 只采用最新数据</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">116.</span>以下视频编辑软件中，（）是免费且支持大多数视频格式的。</div>
+  <div class="options">
+    <div class="option-item">A. 爱剪辑</div>
+    <div class="option-item">B. 会声会影</div>
+    <div class="option-item">C. AdobePremiere</div>
+    <div class="option-item">D. FinalCutPro</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">117.</span>影像标注主要将 X 线信息转化（）信号。</div>
+  <div class="options">
+    <div class="option-item">A. 光信号</div>
+    <div class="option-item">B. 电信号</div>
+    <div class="option-item">C. 数字信号</div>
+    <div class="option-item">D. 声波信号</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">118.</span>在以下选项中，配置网络设置的正确方式是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 点击开始菜单，选择"控制面板"，再找到"网络设置"</div>
+    <div class="option-item">B. 在浏览器中输入路由器的 IP 地址，进入路由器设置页面</div>
+    <div class="option-item">C. 在计算机的桌面上找到"网络连接"图标，右键点击"属性"</div>
+    <div class="option-item">D. 使用快捷键 Ctrl+N 打开网络设置界面</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">119.</span>为了增强数据的可视化效果，可以通过在 Excel 中创建（）实现。</div>
+  <div class="options">
+    <div class="option-item">A. 数据透视表</div>
+    <div class="option-item">B. 柱状图</div>
+    <div class="option-item">C. 工作表保护</div>
+    <div class="option-item">D. 条件格式</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">120.</span>在计算机中，备份数据的目的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 释放硬盘空间</div>
+    <div class="option-item">B. 提高计算机性能</div>
+    <div class="option-item">C. 防止文件丢失和数据损坏</div>
+    <div class="option-item">D. 加快计算机启动速度</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="section-title" id="五_判断题_121__132_">📚 五、判断题（121--132）</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">121.</span>互联网数据采集在数据抓取过程中实现的功能是基本的校验和统计。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">122.</span>分组分析法的目的是便于对比，揭示内在的数量关系。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">123.</span>在浏览器中，打开新标签页的方法可以是使用快捷键 Ctrl+T。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">124.</span>在众多的视频编辑软件中，AdobePremiere 具备"关键帧"功能。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">125.</span>DMAIC 法中的"C"指的是改变(change)。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">126.</span>在文本标注过程中，需要进行迭代优化，原因是为了建立一套完美的标注模型。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">127.</span>静态批量数据通常具有的特征是数据价值密度低。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">128.</span>重复数据处理中，虽然数据集不大，我们也需要剔除所有字段的值都相等的重复值。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">129.</span>影像标注可以应用在医院中的儿科。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">130.</span>为了保证语音标注的质量，质检员需要在相对安静的独立环境下进行标注。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">131.</span>在 Excel 中，可以用来对大量数据进行汇总和分析，使用透视表来制作汇总表是为了聚合并分析数据。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">132.</span>在"中国的首都是北京"这句中，可以抽取出的三元组是中国、首都、北京。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="section-title" id="六_单选题_133__180_">📚 六、单选题（133--180）</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">133.</span>声纹识别是通过（）将声音转换为电信号进行识别。</div>
+  <div class="options">
+    <div class="option-item">A. 人脸识别技术</div>
+    <div class="option-item">B. 指纹识别技术</div>
+    <div class="option-item">C. 语音识别技术</div>
+    <div class="option-item">D. 图像识别技术</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">134.</span>全样检验的缺点是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 需要耗费大量的计算资源</div>
+    <div class="option-item">B. 需要耗费大量的人力精力集中进行</div>
+    <div class="option-item">C. 需要安排具备极高专业素质的人员</div>
+    <div class="option-item">D. 需要对数据集进行分组标注</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">135.</span>智能算法学习过程中，为产生机器学习所需数据，需要进行的操作是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 数学、物理等原始数据处理</div>
+    <div class="option-item">B. 语文、数学、英语等学科的原始数据处理</div>
+    <div class="option-item">C. 拉框、属性选择、转写等步骤操作</div>
+    <div class="option-item">D. 拉框、多边形、线等标注操作</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">136.</span>在属性标注中，内容为"能耗低、内饰高级、性价比特别高"的评论的情感倾向是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 正向</div>
+    <div class="option-item">B. 负向</div>
+    <div class="option-item">C. 中性</div>
+    <div class="option-item">D. 无法确定</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">137.</span>人工智能训练师通过（）的方式来减少不公平和歧视性结果的风险。</div>
+  <div class="options">
+    <div class="option-item">A. 只通过数据采样和处理</div>
+    <div class="option-item">B. 只通过模型评估和改进</div>
+    <div class="option-item">C. 通过数据采样和处理、模型评估和改进</div>
+    <div class="option-item">D. 忽略不公平和歧视性结果的风险</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">138.</span>以下选项中，属于大量人产生的数据是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 传感器数据、图像和视频监控数据</div>
+    <div class="option-item">B. 推特推文、微博博文</div>
+    <div class="option-item">C. 通信软件记录、移动通信数据</div>
+    <div class="option-item">D. 应用服务器日志、条码扫描数据</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">139.</span>图像数据经过数字化处理后可以用来（）。</div>
+  <div class="options">
+    <div class="option-item">A. 存储、编辑和传输</div>
+    <div class="option-item">B. 播放音乐</div>
+    <div class="option-item">C. 运行程序</div>
+    <div class="option-item">D. 发送邮件</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">140.</span>知识库管理系统的一致性和完整性控制主要涉及的方面是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 知识的搜索和知识推理方法</div>
+    <div class="option-item">B. 知识的删除和知识的插入</div>
+    <div class="option-item">C. 知识的查询和知识的控制</div>
+    <div class="option-item">D. 知识的安全和并发控制</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">141.</span>在以下视频标注工具中，是在线的平台，可进行目标检测、分类等多种类型的视频标注任务的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. VATIC</div>
+    <div class="option-item">B. Labelbox</div>
+    <div class="option-item">C. VGGImageAnnotator(VIA)</div>
+    <div class="option-item">D. RectLabel</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">142.</span>当计算机无法启动且发出蜂鸣声时，可能是由于（）造成的。</div>
+  <div class="options">
+    <div class="option-item">A. 显示器损坏</div>
+    <div class="option-item">B. CPU 故障</div>
+    <div class="option-item">C. 鼠标连接错误</div>
+    <div class="option-item">D. 网络连接中断</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">143.</span>在语音标注中，遇到数字"321"，正确的标注方式是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 三百二十一</div>
+    <div class="option-item">B. 三二幺</div>
+    <div class="option-item">C. 三二一</div>
+    <div class="option-item">D. 三二一幺</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">144.</span>数据中存在错误或异常的数据被称为（）。</div>
+  <div class="options">
+    <div class="option-item">A. 数据冲突</div>
+    <div class="option-item">B. 数据噪声</div>
+    <div class="option-item">C. 数据缺失</div>
+    <div class="option-item">D. 数据异常</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">145.</span>以下视频文件格式中，（）格式的主要优点包括支持本地或网络回放、多语言支持、环境独立性等。</div>
+  <div class="options">
+    <div class="option-item">A. WMV</div>
+    <div class="option-item">B. SWF</div>
+    <div class="option-item">C. RMVB</div>
+    <div class="option-item">D. FLV</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">146.</span>审核员在数据标注工作中的主要责任是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 对标注好的数据进行审核</div>
+    <div class="option-item">B. 对数据进行标注</div>
+    <div class="option-item">C. 对相关人员进行管理</div>
+    <div class="option-item">D. 对标注任务进行发放及回收</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">147.</span>在实时检验中，数据标注任务会以（）的方式进行分组完成。</div>
+  <div class="options">
+    <div class="option-item">A. 按地区划分小组</div>
+    <div class="option-item">B. 按数据类型划分小组</div>
+    <div class="option-item">C. 按质检员的技能划分小组</div>
+    <div class="option-item">D. 按照一名质检员同 5\~10 名标注员为一组</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">148.</span>在数据分析中，数据展现的主要目的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 让阅读者更直观了解数据分析的过程</div>
+    <div class="option-item">B. 进行"抽丝剥茧"的工作</div>
+    <div class="option-item">C. 保证数据的一致性和有效性</div>
+    <div class="option-item">D. 对整个数据分析过程进行总结与呈现</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">149.</span>在以下选项中，属于数字视频数据量计算重要参数的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 视频帧率</div>
+    <div class="option-item">B. 视频持续时长</div>
+    <div class="option-item">C. 视频制式</div>
+    <div class="option-item">D. 视频色彩空间</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">150.</span>在（），我们特别需要人工智能模型的可解释性。</div>
+  <div class="options">
+    <div class="option-item">A. 在无关紧要的任务中</div>
+    <div class="option-item">B. 在涉及敏感领域和关键决策时</div>
+    <div class="option-item">C. 在简单任务中</div>
+    <div class="option-item">D. 在没有用户的情况下</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">151.</span>语音标注的主要作用是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 提高语音系统的性能和准确率</div>
+    <div class="option-item">B. 帮助机器更好地理解语音内容</div>
+    <div class="option-item">C. 实现实时播报和语音提示</div>
+    <div class="option-item">D. 进行声纹识别和身份认证</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">152.</span>数据行业合作的最后目标是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 将数据用于人工智能应用</div>
+    <div class="option-item">B. 将数据上传至综合性行业机构数据开放网站</div>
+    <div class="option-item">C. 将数据提交给政府机关进行审核</div>
+    <div class="option-item">D. 将数据进行脱敏和销毁</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">153.</span>传感器数据采集中，（）可能会带来噪声，对数据采集造成一些麻烦。</div>
+  <div class="options">
+    <div class="option-item">A. 光学设备</div>
+    <div class="option-item">B. 交换模拟信号设备</div>
+    <div class="option-item">C. 道路交通监测设备</div>
+    <div class="option-item">D. 录像摄像设备</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">154.</span>连续帧标注方法中，计算机依靠（）技术来分析像素的运动。</div>
+  <div class="options">
+    <div class="option-item">A. 光学流</div>
+    <div class="option-item">B. 图像插值</div>
+    <div class="option-item">C. 视频压缩算法</div>
+    <div class="option-item">D. 自动跟踪算法</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">155.</span>以下标注工具中，是 COCO 数据集标注工具，且标注形状包括矩形、多边形、点线的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. LabelImg</div>
+    <div class="option-item">B. LabelBox</div>
+    <div class="option-item">C. VIA</div>
+    <div class="option-item">D. COCOUI</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">156.</span>在医疗行业中，数据标注可以助力于（）。</div>
+  <div class="options">
+    <div class="option-item">A. 提供更高效的诊断与治疗</div>
+    <div class="option-item">B. 预测需求趋势，优化价格与库存</div>
+    <div class="option-item">C. 规划出行路线，优化驾驶环境</div>
+    <div class="option-item">D. 建立客户全生命周期数据</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">157.</span>在多重抽样检验方法辅助全样检验中，如果标注员 A 在第一轮抽样检验中发现存在不合格的标注，标注员 A 将在第二轮抽样检验中检验的标注数据量较第一轮增加（）。</div>
+  <div class="options">
+    <div class="option-item">A. 1 倍</div>
+    <div class="option-item">B. 2 倍</div>
+    <div class="option-item">C. 3 倍</div>
+    <div class="option-item">D. 4 倍</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">158.</span>声纹识别标注主要体现在（）四个方面。</div>
+  <div class="options">
+    <div class="option-item">A. 发声器尺寸、形态、共鸣方式、嗓音纯度</div>
+    <div class="option-item">B. 声纹图谱、音高、音域、平均音高</div>
+    <div class="option-item">C. 语音分割、共鸣方式、音高、嗓音纯度</div>
+    <div class="option-item">D. 音节边界、音素边界、平均音高、音域特征</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">159.</span>以下选项中，（）不是知识库的特点之一。</div>
+  <div class="options">
+    <div class="option-item">A. 易于知识复用与共享</div>
+    <div class="option-item">B. 易于知识体系的拆分与融合</div>
+    <div class="option-item">C. 易于对形式化表达的正确性进行检查</div>
+    <div class="option-item">D. 易于对网络连接进行实时跟踪</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">160.</span>覆盖类异常中，值的缺失是指（）。</div>
+  <div class="options">
+    <div class="option-item">A. 实体的具体数据的值和格式的错误</div>
+    <div class="option-item">B. 某些元组没有对应的有效实体</div>
+    <div class="option-item">C. 因为某种原因没有采集到某项数据</div>
+    <div class="option-item">D. 不存在相应人员但在数据库中记录了该员工信息</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">161.</span>在序列标注中，词性标注的主要目标是为了（）。</div>
+  <div class="options">
+    <div class="option-item">A. 标记文本中的实体</div>
+    <div class="option-item">B. 分析文本的情感</div>
+    <div class="option-item">C. 给每个词汇赋予相应的词性标记</div>
+    <div class="option-item">D. 对文本进行主题分类</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">162.</span>TTS 模型的主要作用是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 将文字转化为语音</div>
+    <div class="option-item">B. 将图像转化为文字</div>
+    <div class="option-item">C. 将语音转化成文字</div>
+    <div class="option-item">D. 将语音转化为图像</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">163.</span>以下音频处理软件中，更加侧重于后期音频处理的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. Logic</div>
+    <div class="option-item">B. ProTools</div>
+    <div class="option-item">C. GoldWave</div>
+    <div class="option-item">D. Nuendo</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">164.</span>语音数据中交叉语言指的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 外语的方言之分</div>
+    <div class="option-item">B. 中英文混读语音</div>
+    <div class="option-item">C. 交叉口的指挥语音</div>
+    <div class="option-item">D. 噪声</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">165.</span>在客服录音数据标注中，一般语音内容是由（）说出的。</div>
+  <div class="options">
+    <div class="option-item">A. 一个人</div>
+    <div class="option-item">B. 两个人</div>
+    <div class="option-item">C. 三个人</div>
+    <div class="option-item">D. 多于三个人</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">166.</span>数据预识别的目的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 删除重复或无效的数据</div>
+    <div class="option-item">B. 提高标注效率</div>
+    <div class="option-item">C. 输出标注结果</div>
+    <div class="option-item">D. 转换数据格式</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">167.</span>滤镜在视频中的应用主要用于（）。</div>
+  <div class="options">
+    <div class="option-item">A. 提升图像质量</div>
+    <div class="option-item">B. 降低图像质量</div>
+    <div class="option-item">C. 增加附加效果</div>
+    <div class="option-item">D. 加速视频播放</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">168.</span>正确关闭计算机的方法是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 直接拔掉电源线</div>
+    <div class="option-item">B. 关闭显示器电源</div>
+    <div class="option-item">C. 点击"开始"按钮，选择"关机"</div>
+    <div class="option-item">D. 按下计算机主机上的重启按钮</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">169.</span>在 PowerPoint 中，设置幻灯片自动播放和定时切换的时间间隔的方法是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 在"格式"菜单中选择"定时播放"，然后设置时间间隔</div>
+    <div class="option-item">B. 在"视图"菜单中选择"自动播放"，然后设置时间间隔</div>
+    <div class="option-item">C. 在"幻灯片放映"菜单中选择"自动播放"，然后设置时间间隔</div>
+    <div class="option-item">D. 在"编辑"菜单中选择"定时播放"，然后设置时间间隔</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">170.</span>人工智能的神经网络技术在图像识别时将图像转换成（）形式的输入。</div>
+  <div class="options">
+    <div class="option-item">A. 文字</div>
+    <div class="option-item">B. 符号</div>
+    <div class="option-item">C. 像素颜色的数字</div>
+    <div class="option-item">D. 语言</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">171.</span>在语音数据采集规范中，适用领域是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 机器学习</div>
+    <div class="option-item">B. 自然语言处理</div>
+    <div class="option-item">C. 图像识别</div>
+    <div class="option-item">D. 语音识别</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">172.</span>在视频数据标注中，返修过程中可以修改（）。</div>
+  <div class="options">
+    <div class="option-item">A. 质检结果</div>
+    <div class="option-item">B. 视频帧序号</div>
+    <div class="option-item">C. 标注对象</div>
+    <div class="option-item">D. 返修结果</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">173.</span>在以下数据集中，（）可以通过免费下载的方式进行获取。</div>
+  <div class="options">
+    <div class="option-item">A. 已加密的数据集</div>
+    <div class="option-item">B. 机器学习与数据挖掘平台提供的数据集</div>
+    <div class="option-item">C. 商业机密的数据集</div>
+    <div class="option-item">D. 无法使用的数据集</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">174.</span>在涉及敏感领域和关键决策时，人工智能训练师应该特别注重的方面是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 数据共享</div>
+    <div class="option-item">B. 透明度和可解释性</div>
+    <div class="option-item">C. 数据可视化</div>
+    <div class="option-item">D. 数据清洗</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">175.</span>单标注框质检中，（）标注框轮廓显示为红色。</div>
+  <div class="options">
+    <div class="option-item">A. 标注框未进行质检</div>
+    <div class="option-item">B. 标注框质检合格</div>
+    <div class="option-item">C. 标注框质检不合格</div>
+    <div class="option-item">D. 提交标注框后</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">176.</span>语音数据的分类主要按照（）来进行。</div>
+  <div class="options">
+    <div class="option-item">A. 语音属性</div>
+    <div class="option-item">B. 语音种类</div>
+    <div class="option-item">C. 发音人的年龄</div>
+    <div class="option-item">D. 语种</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">177.</span>为解决标注数据不一致的问题，文本标注中采取的方式是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 交叉标注</div>
+    <div class="option-item">B. 批量标注</div>
+    <div class="option-item">C. 单一标注</div>
+    <div class="option-item">D. 快速标注</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">178.</span>明确文本的用途对于建立（）有很大的帮助。</div>
+  <div class="options">
+    <div class="option-item">A. 文本标注的标准</div>
+    <div class="option-item">B. 机器翻译的性能</div>
+    <div class="option-item">C. 图像处理的模型</div>
+    <div class="option-item">D. 阅读理解的结果</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">179.</span>在数据质量指标中，代表了数据完整度的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 关联度</div>
+    <div class="option-item">B. 可信性</div>
+    <div class="option-item">C. 范围</div>
+    <div class="option-item">D. 时效性</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">180.</span>Word 中的文本对齐方式有（）。</div>
+  <div class="options">
+    <div class="option-item">A. 左对齐、右对齐和居中对齐</div>
+    <div class="option-item">B. 左对齐、右对齐和底部对齐</div>
+    <div class="option-item">C. 左对齐、右对齐和顶部对齐</div>
+    <div class="option-item">D. 左对齐、右对齐和垂直居中对齐</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="section-title" id="七_判断题_181__192_">📚 七、判断题（181--192）</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">181.</span>在数据清洗过程中，经过干净数据回流环节后，我们可以得到干净数据，并用它替换原始数据。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">182.</span>对文件进行整理和分类的正确方法是将相似文件放在同一个文件夹中。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">183.</span>公正的人工智能模型应该是对所有群体表现公正。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">184.</span>LabelImg 是著名的图像数据标注工具，标注形状包括矩形，导出数据格式为 XML。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">185.</span>实时检验方法的优点之一是能够保证整体标注任务的流畅性。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">186.</span>横向对比分析指的是业务与业务之间的对比。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">187.</span>通过双击浏览器窗口的标题栏进行搜索，我们可以实现网页搜索的需求。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">188.</span>标注是对未标注的数据进行工作。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">189.</span>在 MySQL 中，用来指定搜索条件的是 WHERE 数据筛选。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">190.</span>充分了解语言学可以帮助确定文本的用途，但对数据标注方式没有影响。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">191.</span>审核过程并不重要，文本标注完成后直接使用即可。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">192.</span>数据分析报告的主要作用是对整个数据分析过程进行总结与呈现。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="section-title" id="八_单选题_193__240_">📚 八、单选题（193--240）</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">193.</span>智能家居发展中，数据标注的主要内容包括（）。</div>
+  <div class="options">
+    <div class="option-item">A. 采集地址兴趣点，在地图上作出相应地理位置信息标记的 POI 标记</div>
+    <div class="option-item">B. 通过矩形框标记人脸、进行人脸精细分割</div>
+    <div class="option-item">C. 人脸标注、视频分割、语音采集</div>
+    <div class="option-item">D. 人体标框、3D 画框、骨骼点标记</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">194.</span>人工智能训练师应警惕和减少模型中的偏见和歧视的原因是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 提高模型性能</div>
+    <div class="option-item">B. 增加模型复杂度</div>
+    <div class="option-item">C. 保护数据隐私和安全</div>
+    <div class="option-item">D. 避免不公平和歧视性的结果</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">195.</span>以下视频编辑软件中，对计算机配置要求较高，需要使用者具备一定的视频编辑知识的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 爱剪辑</div>
+    <div class="option-item">B. 会声会影</div>
+    <div class="option-item">C. AdobePremiere</div>
+    <div class="option-item">D. FinalCutPro</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">196.</span>EmEditor 和 LogViewer 是用于处理（）类型文本文件的工具。</div>
+  <div class="options">
+    <div class="option-item">A. HTML 文件</div>
+    <div class="option-item">B. XML 文件</div>
+    <div class="option-item">C. JSON 文件</div>
+    <div class="option-item">D. 超大文本文件</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">197.</span>为了保障行业数据安全性，数据行业合作需要做的事情是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 开放所有数据接口</div>
+    <div class="option-item">B. 将数据完全公开</div>
+    <div class="option-item">C. 设计数据连接模型和采集模块</div>
+    <div class="option-item">D. 将所有数据存储在公有云设施中</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">198.</span>在客服录音数据标注中，如果有多个人说话，需要标记的第一个说话人的信息是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 说话人的姓名</div>
+    <div class="option-item">B. 说话人的职业</div>
+    <div class="option-item">C. 说话人的性别</div>
+    <div class="option-item">D. 说话人的年龄</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">199.</span>噪声数据处理中，噪声是指（）。</div>
+  <div class="options">
+    <div class="option-item">A. 被测量变量的随机误差或方差</div>
+    <div class="option-item">B. 数据中的错误或异常</div>
+    <div class="option-item">C. 数据的随机波动</div>
+    <div class="option-item">D. 数据中的离群点</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">200.</span>在区域标注质量检验中，特别需要注意检验（）。</div>
+  <div class="options">
+    <div class="option-item">A. 区域标注的颜色</div>
+    <div class="option-item">B. 区域标注的大小</div>
+    <div class="option-item">C. 区域标注的转折拐角</div>
+    <div class="option-item">D. 区域标注的中心像素点</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">201.</span>在全样检验中，质检员对整个数据标注任务的合格情况要进行的判定是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 分段判定</div>
+    <div class="option-item">B. 逐个判定</div>
+    <div class="option-item">C. 无遗漏判定</div>
+    <div class="option-item">D. 精准判定</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">202.</span>在数据采集中常见的平台中，可获取数据集的平台是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 专有平台，只提供付费数据集</div>
+    <div class="option-item">B. 专有平台，只提供免费数据集</div>
+    <div class="option-item">C. 综合平台，既提供付费数据集，也提供免费数据集</div>
+    <div class="option-item">D. 社交平台，不提供数据集</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">203.</span>如果语音中夹杂英文单词或短语，对于常用的专有词汇，正确的标注方式是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 以大写字母形式标注每个拼出的字母，字母之间加空格</div>
+    <div class="option-item">B. 以小写字母形式标注每个单词，单词之间加空格</div>
+    <div class="option-item">C. 直接抛弃不标注</div>
+    <div class="option-item">D. 标注为"英文内容"</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">204.</span>在文本数据采集规范示例中，文件格式是（）。</div>
+  <div class="options">
+    <div class="option-item">A. PDF</div>
+    <div class="option-item">B. DOC</div>
+    <div class="option-item">C. TXT 编码格式-UTF-8</div>
+    <div class="option-item">D. HTML</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">205.</span>现在需要对一批权重非常高的医疗图像数据做标注，应该选择（）来担任标注员。</div>
+  <div class="options">
+    <div class="option-item">A. 经过培训的人员</div>
+    <div class="option-item">B. 医疗领域专家</div>
+    <div class="option-item">C. 具有丰富标注经验的非医疗人员</div>
+    <div class="option-item">D. 管理员</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">206.</span>语音数据按照属性可分为的类型是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 朗读语音和自然对话</div>
+    <div class="option-item">B. 引导语音和情感语音</div>
+    <div class="option-item">C. 朗读语音和引导语音</div>
+    <div class="option-item">D. 自然对话和情感语音</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">207.</span>在文本标注的质量标注指标中，准确率和召回率一般由（）来确认并制定。</div>
+  <div class="options">
+    <div class="option-item">A. 标注员</div>
+    <div class="option-item">B. 审核员</div>
+    <div class="option-item">C. 需求方</div>
+    <div class="option-item">D. 管理员</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">208.</span>检查是否有新的操作系统和程序更新可用的正确方式是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 在计算机控制面板中查找更新选项</div>
+    <div class="option-item">B. 卸载所有软件再重新安装</div>
+    <div class="option-item">C. 使用快捷键 Ctrl+S</div>
+    <div class="option-item">D. 关闭计算机并重新启动</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">209.</span>为了实现自然人机交互，语音情绪判定需要同时识别（）信息。</div>
+  <div class="options">
+    <div class="option-item">A. 语音内容和音频特征</div>
+    <div class="option-item">B. 语音内容和情绪信息</div>
+    <div class="option-item">C. 语音内容和说话者身份</div>
+    <div class="option-item">D. 语音内容和周围环境</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">210.</span>人工智能训练师可以通过（）来确保模型的可解释性。</div>
+  <div class="options">
+    <div class="option-item">A. 增加模型的复杂性</div>
+    <div class="option-item">B. 选择难以理解的算法</div>
+    <div class="option-item">C. 增加模型的参数数量</div>
+    <div class="option-item">D. 努力使模型决策过程能够被理解和解释</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">211.</span>在图像目标检测中，标注人员应该贴字而不压字的原因是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 压字会损坏图像质量</div>
+    <div class="option-item">B. 贴字可以增加图像的分辨率</div>
+    <div class="option-item">C. 压字会使图像不可读</div>
+    <div class="option-item">D. 贴字更符合标注规范</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">212.</span>多重抽样检验方法的优点之一是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 可以用于单独实施的检验方法</div>
+    <div class="option-item">B. 提高数据标注质量检验的准确性</div>
+    <div class="option-item">C. 可以替代其他检验方法</div>
+    <div class="option-item">D. 减少质检员的工作量</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">213.</span>在以下的视频标注工具中，支持多种标注类型和协作功能的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. VATIC</div>
+    <div class="option-item">B. Labelbox</div>
+    <div class="option-item">C. VGGImageAnnotator(VIA)</div>
+    <div class="option-item">D. CVAT</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">214.</span>在数据清洗过程中，明确错误类型的阶段，可以根据（）决定数据转换和清洗的步骤。</div>
+  <div class="options">
+    <div class="option-item">A. 实际数据的结构和指定的数据结构不相同</div>
+    <div class="option-item">B. 实体的具体数据的值和格式的错误</div>
+    <div class="option-item">C. 语法错误、值域格式错误和不规则的取值</div>
+    <div class="option-item">D. 数据的属性错误，通过统计、聚类或关联规则的方法进行检测</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">215.</span>数据标注对于机器学习算法的训练起到的关键作用是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 算法的初始启动</div>
+    <div class="option-item">B. 算法的评估和测试</div>
+    <div class="option-item">C. 提供足够高质量的数据</div>
+    <div class="option-item">D. 对算法的内在结构进行解释</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">216.</span>RMVB 格式的优点在于它在保证静止画面质量的前提下，大幅地提高了（）。</div>
+  <div class="options">
+    <div class="option-item">A. 图像质量</div>
+    <div class="option-item">B. 文件大小</div>
+    <div class="option-item">C. 比特率资源利用率</div>
+    <div class="option-item">D. 编码速率</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">217.</span>以下选项中，可能导致机器学习训练的目标偏离、无法正确识别的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 数据的分析方法</div>
+    <div class="option-item">B. 训练算法的复杂度</div>
+    <div class="option-item">C. 数据集的大小</div>
+    <div class="option-item">D. 数据中的噪声</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">218.</span>设置 Word 文档的页面大小和边距的正确方法是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 在打印预览界面设置页面大小和边距</div>
+    <div class="option-item">B. 在文档编辑界面点击"页面设置"菜单进行设置</div>
+    <div class="option-item">C. Word 默认页面大小和边距，无需设置</div>
+    <div class="option-item">D. 页面大小和边距在 Word 中无法修改</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">219.</span>对于资讯类的数据，数据质量评估中时效性的要求是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 较强的时效性</div>
+    <div class="option-item">B. 一般的时效性</div>
+    <div class="option-item">C. 强制时效性</div>
+    <div class="option-item">D. 无时效性要求</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">220.</span>在（）情况下，我们可以采用数据众包采集模式。</div>
+  <div class="options">
+    <div class="option-item">A. 当数据采集的成本较高时</div>
+    <div class="option-item">B. 当数据来源受限且难以获取时</div>
+    <div class="option-item">C. 当数据需求量较小且简单时</div>
+    <div class="option-item">D. 当数据处理和分析需求复杂时</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">221.</span>在语音数据采集规范示例中，录制环境有（）种。</div>
+  <div class="options">
+    <div class="option-item">A. 1 种</div>
+    <div class="option-item">B. 2 种</div>
+    <div class="option-item">C. 3 种</div>
+    <div class="option-item">D. 4 种</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">222.</span>在 Word 文档中插入图片时，以下操作中正确的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 调整图片大小和颜色</div>
+    <div class="option-item">B. 对图片进行排序和筛选</div>
+    <div class="option-item">C. 设置图片的打印份数和打印范围</div>
+    <div class="option-item">D. Word 中不能插入图片</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">223.</span>标注标签需要满足的要求是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 复杂详细，包含所有相关信息</div>
+    <div class="option-item">B. 简明扼要，准确明了，能反映图像内容</div>
+    <div class="option-item">C. 带有个人情感和主观评价</div>
+    <div class="option-item">D. 包含标注人员的姓名和时间戳</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">224.</span>以下选项中，属于人脸数据采集规范中的数据要求的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 采集环境--室内场景/室外场景</div>
+    <div class="option-item">B. 人员分布--性别分布:女性 xx 人，男性 xx</div>
+    <div class="option-item">C. 图像数据格式--jpg/.png/jpeg</div>
+    <div class="option-item">D. 数据规模--xx 人，xx 张</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">225.</span>由于视频中图像内容有很强的信息相关性，相邻帧的内容又有高度的连贯性，数字视频的数据可进行几百倍的压缩。这是因为（）。</div>
+  <div class="options">
+    <div class="option-item">A. 视频编辑工具的高效设计</div>
+    <div class="option-item">B. 视觉特性和图像连贯性</div>
+    <div class="option-item">C. 数字传输率的提升</div>
+    <div class="option-item">D. 静态图像压缩算法的应用</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">226.</span>在语音标注的质量检验中，质检员需要时刻关注（）。</div>
+  <div class="options">
+    <div class="option-item">A. 文本内容与发音是否相符</div>
+    <div class="option-item">B. 标注区域的音频质量是否清晰</div>
+    <div class="option-item">C. 标注区域的时间轴是否准确</div>
+    <div class="option-item">D. 标注区域的音量是否合适</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">227.</span>语音标注在（）语音处理任务中起到重要作用。</div>
+  <div class="options">
+    <div class="option-item">A. 语音合成和图像识别</div>
+    <div class="option-item">B. 语音识别和语音理解</div>
+    <div class="option-item">C. 文本分类和数据挖掘</div>
+    <div class="option-item">D. 机器学习和深度学习</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">228.</span>漏斗分析法适用于（）分析需求。</div>
+  <div class="options">
+    <div class="option-item">A. 周期较长，各流程环节涉及复杂业务过程较多的流程</div>
+    <div class="option-item">B. 业务流程相对规范，涉及复杂业务过程较少的流程</div>
+    <div class="option-item">C. 周期较短，各流程环节涉及简单业务过程的流程</div>
+    <div class="option-item">D. 涉及大量数据处理和比较的流程</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">229.</span>在以下的图像分析任务中，特别需要描点标注提供更精确的目标位置信息的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 图像分类</div>
+    <div class="option-item">B. 目标检测</div>
+    <div class="option-item">C. 人脸关键点标注</div>
+    <div class="option-item">D. 图像语义分割</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">230.</span>根据信号运载信息方式的不同，可以将信号分为两类，它们分别是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 数字信号和模拟信号</div>
+    <div class="option-item">B. 开关信号和脉冲信号</div>
+    <div class="option-item">C. 直流信号和交流信号</div>
+    <div class="option-item">D. 时域信号和频域信号</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">231.</span>知识库在知识管理上发挥着的功能（）。</div>
+  <div class="options">
+    <div class="option-item">A. 知识构建与维护、知识定位和知识校验</div>
+    <div class="option-item">B. 知识分类和知识维护、知识资源的自动采集</div>
+    <div class="option-item">C. 知识组织、知识分类和知识维护、知识资源的自动采集</div>
+    <div class="option-item">D. 知识定位和知识检索、知识资源的自动采集</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">232.</span>巨量机器产生的数据包括（）。</div>
+  <div class="options">
+    <div class="option-item">A. 通信软件记录、移动通信数据</div>
+    <div class="option-item">B. 传感器数据、图像和视频监控数据</div>
+    <div class="option-item">C. 条码扫描数据、关系型数据库数据</div>
+    <div class="option-item">D. 微博博文、企业应用评论数据</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">233.</span>在 DMAIC 法中，第二步\"measure\"阶段的主要目的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 制定改善计划和解决计划</div>
+    <div class="option-item">B. 明确客户真实需求</div>
+    <div class="option-item">C. 找到影响业务流程的关键因子</div>
+    <div class="option-item">D. 分析和测量业务流程</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">234.</span>人脸关键点标注返回的常用关键点坐标位置有（）个。</div>
+  <div class="options">
+    <div class="option-item">A. 32</div>
+    <div class="option-item">B. 72</div>
+    <div class="option-item">C. 100</div>
+    <div class="option-item">D. 150</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">235.</span>在公共服务领域，批量数据处理的典型应用场景包括（）。</div>
+  <div class="options">
+    <div class="option-item">A. 能源领域的资源优化</div>
+    <div class="option-item">B. 社交网络的用户推荐</div>
+    <div class="option-item">C. 医疗保健的医生回答</div>
+    <div class="option-item">D. 电商行业的商品销量提升</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">236.</span>在落地过程中，声纹识别的水平受到（）这两个重要因素的影响。</div>
+  <div class="options">
+    <div class="option-item">A. 训练数据和语音识别技术</div>
+    <div class="option-item">B. 算法和语音标注成本</div>
+    <div class="option-item">C. 发声器尺寸和共鸣方式</div>
+    <div class="option-item">D. 声纹图谱和音高特征</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">237.</span>以下选项中，属于图像数据种类的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 人脸图像和人脸表情</div>
+    <div class="option-item">B. 手写体和印刷文字</div>
+    <div class="option-item">C. 冰箱食品和特定场景</div>
+    <div class="option-item">D. 超市小票和商标</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">238.</span>在以下智能云服务系统中，（）是一种通过各种信息传感器实时收集数据信息，然后通过机器学习对数据进行智能化分析的系统。</div>
+  <div class="options">
+    <div class="option-item">A. 智能陪练系统</div>
+    <div class="option-item">B. 座席服务辅助系统</div>
+    <div class="option-item">C. 智能物联网系统</div>
+    <div class="option-item">D. 座席服务质检系统</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">239.</span>通过对路况图片中的汽车和行人进行筛选、分类、标框等，可以提高（）。</div>
+  <div class="options">
+    <div class="option-item">A. 人工智能的情感分析能力</div>
+    <div class="option-item">B. 人工智能的视觉处理能力</div>
+    <div class="option-item">C. 人工智能的文字理解能力</div>
+    <div class="option-item">D. 人工智能的音频识别能力</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">240.</span>在文本编辑器中，我们可以（）在文本中插入特殊符号或表情。</div>
+  <div class="options">
+    <div class="option-item">A. 直接用鼠标拖拽插入</div>
+    <div class="option-item">B. 使用快捷键 Ctrl+S 插入</div>
+    <div class="option-item">C. 使用快捷键 Ctrl+C 复制表情再粘贴</div>
+    <div class="option-item">D. 使用插入菜单选择符号或表情</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="section-title" id="九_判断题_241__252_">📚 九、判断题（241--252）</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">241.</span>VGG Image Annotator (VIA)是一款开源的图像和视频标注工具。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">242.</span>其他图像标注的质量标准是由图像处理算法的使用者来制定的。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">243.</span>在 MySQL 中，数据分组的处理顺序是先筛选数据，再进行汇总处理。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">244.</span>传感器数据采集中，交换模拟信号设备和道路交通监测类的设备接收不同类型信号的难易程度差别很大。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">245.</span>影像标注主要用于医学图像处理。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">246.</span>在人工智能训练师的工作中，偏见和歧视的存在会对特定的社会群体造成负面影响。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">247.</span>静态批量数据适用于先计算后存储，实时性要求高的场景。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">248.</span>在 Excel 中，可以通过创建和保存工作簿的功能，我们可以新建工作簿、打开已有的工作簿，以及编辑数据后保存。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">249.</span>在 Word 文档的保存格式操作中，我们可以选择 docx 格式作为文件的保存形式。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">250.</span>爱剪辑在视频导出时会强制添加爱剪辑的片头和片尾。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">251.</span>安全注销账户的目的是保护个人隐私和数据安全。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">252.</span>图像标注可以用于识别和理解图像内容。</div>
+  <div class="options">
+    <div class="option-item">A. 正确</div>
+    <div class="option-item">B. 错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="section-title" id="十_单选题_253__300_">📚 十、单选题（253--300）</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">253.</span>在业务流程分析中，关注业务形态、需求场景和学习竞品公司的优点，这种分析方法是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 横向对比分析优劣</div>
+    <div class="option-item">B. 终端用户数据反馈</div>
+    <div class="option-item">C. 日常运营分析</div>
+    <div class="option-item">D. 定期流程审核</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">254.</span>以下选项中，（）是正确的网页浏览操作。</div>
+  <div class="options">
+    <div class="option-item">A. 使用快捷键 Ctrl+W 可以关闭当前标签页</div>
+    <div class="option-item">B. 使用快捷键 Ctrl+H 可以回到上一页</div>
+    <div class="option-item">C. 使用快捷键 Ctrl+S 可以保存网页内容</div>
+    <div class="option-item">D. 使用快捷键 Ctrl+D 可以删除书签</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">255.</span>语音合成技术的主要功能是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 将语音转换为文字录入，提高输入效率</div>
+    <div class="option-item">B. 实时将文字转化为语音朗读出来</div>
+    <div class="option-item">C. 进行声纹识别和身份认证</div>
+    <div class="option-item">D. 将文字转化为声音学习，并进行实时播报</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">256.</span>数据质量评估的 4R 原则中，获取用户信任的关键指标是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 范围</div>
+    <div class="option-item">B. 关联度</div>
+    <div class="option-item">C. 可信性</div>
+    <div class="option-item">D. 时效性</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">257.</span>在文本数据采集规范中，对采集内容的说明应包括的级别是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 词级和句级</div>
+    <div class="option-item">B. 句级和段级</div>
+    <div class="option-item">C. 段级和篇级</div>
+    <div class="option-item">D. 词级、句级、段级和篇级</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">258.</span>在数据标注过程中，标注员需要使用（）进行标注。</div>
+  <div class="options">
+    <div class="option-item">A. 数据预识别工具</div>
+    <div class="option-item">B. 结果输出工具</div>
+    <div class="option-item">C. 数据转换工具</div>
+    <div class="option-item">D. 标注工具</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">259.</span>以下操作中，（）可以帮助加强计算机的安全防护。</div>
+  <div class="options">
+    <div class="option-item">A. 将密码设置为\"123456\"</div>
+    <div class="option-item">B. 开启计算机的防火墙</div>
+    <div class="option-item">C. 使用相同的密码多个账户</div>
+    <div class="option-item">D. 公开分享计算机的登录信息</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">260.</span>在对数据质量进行检验时，若出现（）情况，适合使用全样检验。</div>
+  <div class="options">
+    <div class="option-item">A. 人员不足或时间不够</div>
+    <div class="option-item">B. 数据集质量较差</div>
+    <div class="option-item">C. 需要高度准确率的标注任务</div>
+    <div class="option-item">D. 需要对数据集进行多次检验</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">261.</span>语音数据中交叉语言指的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 外语的方言之分</div>
+    <div class="option-item">B. 中英文混读语音</div>
+    <div class="option-item">C. 交叉口的指挥语音</div>
+    <div class="option-item">D. 噪声</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">262.</span>通过语音标注可以实现对（）的改进。</div>
+  <div class="options">
+    <div class="option-item">A. 提高数据存储效率</div>
+    <div class="option-item">B. 提高语音系统的性能和准确度</div>
+    <div class="option-item">C. 加快语音合成速度</div>
+    <div class="option-item">D. 增加语音片段的数量</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">263.</span>知识库能够提供的功能是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 快捷便利的知识加工、优化的加工页面和知识定位约束性的知识录入机制</div>
+    <div class="option-item">B. 知识定位和知识检索、知识标识和知识校验</div>
+    <div class="option-item">C. 知识组织、知识分类和知识维护、可视化的知识编辑</div>
+    <div class="option-item">D. 知识构建与维护、知识分类和知识维护、知识资源的自动采集</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">264.</span>在语音标注中，如果遇到口音或个人习惯造成的某些汉字发音改变，正确的处理方式是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 根据原内容改写</div>
+    <div class="option-item">B. 根据常见同音字表示</div>
+    <div class="option-item">C. 直接抛弃不标注</div>
+    <div class="option-item">D. 根据主体说话人声音大小决定</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">265.</span>对医疗影像中的骨骼进行描点，特别是对病理切片进行标注分析，能够让人工智能帮助人类预测（）。</div>
+  <div class="options">
+    <div class="option-item">A. 未来的天气</div>
+    <div class="option-item">B. 未来趋势</div>
+    <div class="option-item">C. 各种疾病</div>
+    <div class="option-item">D. 社会动态</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">266.</span>在计算机中，打开应用程序的正确方式是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 点击屏幕</div>
+    <div class="option-item">B. 双击应用程序图标</div>
+    <div class="option-item">C. 将应用程序图标复制到新位置</div>
+    <div class="option-item">D. 拔掉计算机电源线</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">267.</span>在数据标注工作中，管理员的主要职责是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 审核标注好的数据</div>
+    <div class="option-item">B. 进行数据的标注</div>
+    <div class="option-item">C. 提供专业知识支持</div>
+    <div class="option-item">D. 对相关人员进行管理和标注任务的发放与回收</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">268.</span>语音标注的方法主要应用于处理（）的任务。</div>
+  <div class="options">
+    <div class="option-item">A. 语音合成和声纹识别</div>
+    <div class="option-item">B. 语音分割和自然语言处理</div>
+    <div class="option-item">C. 语音输入和语音合成</div>
+    <div class="option-item">D. 语音识别和音频转写</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">269.</span>在数据清洗过程中，在处理之前对源数据进行备份的原因是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 防止数据丢失和重复进行数据清洗</div>
+    <div class="option-item">B. 方便处理方便，做标准化处理</div>
+    <div class="option-item">C. 提高数据质量，增加数据源数量</div>
+    <div class="option-item">D. 自动检测数据的属性错误</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">270.</span>数据分析的步骤中，（）是按照确定的数据分析思路和计划有目的地收集、整合相关数据的过程。</div>
+  <div class="options">
+    <div class="option-item">A. 数据处理</div>
+    <div class="option-item">B. 数据展现</div>
+    <div class="option-item">C. 数据分析</div>
+    <div class="option-item">D. 数据收集</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">271.</span>在以下的行业及领域中，可以广泛使用视频标注数据的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 新零售和电子商务</div>
+    <div class="option-item">B. 安全监控和防盗系统</div>
+    <div class="option-item">C. 电影制作和影视娱乐</div>
+    <div class="option-item">D. 语音识别和自然语言处理</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">272.</span>在语音标注中，如果标注员错误地将一个音标标注为另一个音标，这可能会导致的问题是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 文本内容与发音不相符</div>
+    <div class="option-item">B. 语音数据发音的时间轴与标注区域不相符</div>
+    <div class="option-item">C. 标注区域的音标与发音不相符</div>
+    <div class="option-item">D. 标注区域与文本内容不相符</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">273.</span>语用学的主要研究内容是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 句子的情感和情绪</div>
+    <div class="option-item">B. 词汇的意义和用法</div>
+    <div class="option-item">C. 文本中的逻辑关系</div>
+    <div class="option-item">D. 语言在特定语境下的使用和交际意义</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">274.</span>为了解决数字视频数据量过大的问题，我们采用了（）这项关键技术来解决问题。</div>
+  <div class="options">
+    <div class="option-item">A. 数据加密技术</div>
+    <div class="option-item">B. 视频帧率降低技术</div>
+    <div class="option-item">C. 视频压缩技术</div>
+    <div class="option-item">D. 多媒体传输技术</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">275.</span>在语音数据采集规范中，录音设备的文件格式是（）。</div>
+  <div class="options">
+    <div class="option-item">A. MP3</div>
+    <div class="option-item">B. WAV</div>
+    <div class="option-item">C. FLAC</div>
+    <div class="option-item">D. AAC</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">276.</span>图像区域标注主要应用的领域是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 医疗影像识别</div>
+    <div class="option-item">B. 自然语言处理</div>
+    <div class="option-item">C. 人脸识别</div>
+    <div class="option-item">D. 自动驾驶</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">277.</span>以下选项中，不属于车辆数据采集规范示例中的数据要求是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 车辆型号--小轿车、SUV、面包车、客车、货车、其他</div>
+    <div class="option-item">B. 车辆颜色--白、灰、红、黄、绿、其他</div>
+    <div class="option-item">C. 拍摄时间--光线亮的时候，光线昏暗的时候，光线正常的时候</div>
+    <div class="option-item">D. 车辆识别码--用于唯一标识车辆的编号</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">278.</span>MapReduce 将复杂的、运行在大规模集群上的并行过程高度地抽象为（）两个简单的函数。</div>
+  <div class="options">
+    <div class="option-item">A. 分组和聚合函数</div>
+    <div class="option-item">B. 处理和合并函数</div>
+    <div class="option-item">C. Map 函数和 Reduce 函数</div>
+    <div class="option-item">D. 过滤和排序函数</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">279.</span>标注数据的不一致性主要是由（）因素引起的。</div>
+  <div class="options">
+    <div class="option-item">A. 数据标注员的工资水平</div>
+    <div class="option-item">B. 文本内容的复杂性</div>
+    <div class="option-item">C. 标注数据的清洗方式</div>
+    <div class="option-item">D. 缺乏统一的标注标准</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">280.</span>通过（）的操作，我们可以设置 PowerPoint 幻灯片的切换方式和动画效果。</div>
+  <div class="options">
+    <div class="option-item">A. 在"格式"菜单中选择"幻灯片切换"，然后选择动画效果</div>
+    <div class="option-item">B. 在"视图"菜单中选择"幻灯片切换"，然后选择切换方式</div>
+    <div class="option-item">C. 在"幻灯片放映"菜单中选择"切换"，然后选择动画效果</div>
+    <div class="option-item">D. 在"插入"菜单中选择"切换"，然后选择切换方式</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">281.</span>多重抽样检验方法的缺点是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 只能用于辅助其他检验方法</div>
+    <div class="option-item">B. 对质检员的工作重心没有影响</div>
+    <div class="option-item">C. 不能有效地弥补其他检验方法的疏漏</div>
+    <div class="option-item">D. 可能导致数据标注的混淆</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">282.</span>在数据行业合作中，数据脱敏是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 将数据重新整合和清洗</div>
+    <div class="option-item">B. 将数据存储在安全的缓冲区</div>
+    <div class="option-item">C. 对数据进行加密保护</div>
+    <div class="option-item">D. 将数据用于人工智能应用</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">283.</span>XMLViewer 是用于打开（）格式文件的工具。</div>
+  <div class="options">
+    <div class="option-item">A. JSON</div>
+    <div class="option-item">B. XML</div>
+    <div class="option-item">C. HTML</div>
+    <div class="option-item">D. Log</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">284.</span>语音数据中噪声指的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 环境音是否有噪声</div>
+    <div class="option-item">B. 婴儿啼哭和动物叫声</div>
+    <div class="option-item">C. 特殊噪声(机场、车站等)</div>
+    <div class="option-item">D. 婴儿啼哭、动物叫声和特殊噪声(机场、车站等)</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">285.</span>在语音转写中，标注员使用标注工具将听到的语音转写成（）形式的数据。</div>
+  <div class="options">
+    <div class="option-item">A. 图像数据</div>
+    <div class="option-item">B. 文字数据</div>
+    <div class="option-item">C. 数字数据</div>
+    <div class="option-item">D. 视频数据</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">286.</span>在"北京的经度为东经 116°20′"这个句子中，可以抽取出的三元组是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 北京、经度、东经 116°20′</div>
+    <div class="option-item">B. 东经 116°20′、经度、北京</div>
+    <div class="option-item">C. 经度、北京、东经 116°20′</div>
+    <div class="option-item">D. 北京、东经 116°20′、经度</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">287.</span>在 Word 中查找指定内容并进行替换的操作是通过（）实现的。</div>
+  <div class="options">
+    <div class="option-item">A. 拼写检查功能</div>
+    <div class="option-item">B. 撤销和重做功能</div>
+    <div class="option-item">C. 插入图片和表格功能</div>
+    <div class="option-item">D. 查找和替换功能</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">288.</span>人脸关键点标注通过（）方式实现。</div>
+  <div class="options">
+    <div class="option-item">A. 自动化算法</div>
+    <div class="option-item">B. 人工标注</div>
+    <div class="option-item">C. 深度学习模型</div>
+    <div class="option-item">D. 图像分割</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">289.</span>图像目标检测的主要目标是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 对特定数据进行处理反馈</div>
+    <div class="option-item">B. 对图像进行美化处理</div>
+    <div class="option-item">C. 增加图像的分辨率</div>
+    <div class="option-item">D. 对图像目标进行框选标注</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">290.</span>在噪声数据处理中，噪声数据会对数据分析造成的影响是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 增加算法的收敛速度</div>
+    <div class="option-item">B. 提高训练生成模型的准确性</div>
+    <div class="option-item">C. 不影响数据分析结果</div>
+    <div class="option-item">D. 影响数据分析结果，如对训练生成的模型准确性有副作用</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">291.</span>以下角色中，最适合执行文本标注的审核过程的（）。</div>
+  <div class="options">
+    <div class="option-item">A. 新加入项目的数据标注员</div>
+    <div class="option-item">B. 项目经理</div>
+    <div class="option-item">C. 参与制定文本标注规则的人员</div>
+    <div class="option-item">D. 高级数据分析师</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">292.</span>视频中的基本信息单元是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 帧</div>
+    <div class="option-item">B. 帧速率</div>
+    <div class="option-item">C. 时基</div>
+    <div class="option-item">D. 剪辑</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">293.</span>为了让机器学习从数据中更准确有效地获得规律，数据标注的工作主要是对（）进行加工操作。</div>
+  <div class="options">
+    <div class="option-item">A. 数据的来源和采集方式</div>
+    <div class="option-item">B. 数据的处理和存储方式</div>
+    <div class="option-item">C. 数据的格式和编码方式</div>
+    <div class="option-item">D. 数据的归类、整理、标记等操作</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">294.</span>（）可以实现剪切选中的文件或文本。</div>
+  <div class="options">
+    <div class="option-item">A. 使用快捷键 Ctrl+X</div>
+    <div class="option-item">B. 使用快捷键 Ctrl+C</div>
+    <div class="option-item">C. 使用快捷键 Ctrl+V</div>
+    <div class="option-item">D. 使用快捷键</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">A</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">295.</span>以下工具中，（）是一款免费的中文版格式转换工具，它支持音频合并、混流等高级功能。</div>
+  <div class="options">
+    <div class="option-item">A. 迅捷文字语音转换器</div>
+    <div class="option-item">B. 格式工厂</div>
+    <div class="option-item">C. GoldWave</div>
+    <div class="option-item">D. Logic</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">296.</span>迭代式标注的过程中，（）这个步骤可以帮助发现标注错误并进行修改。</div>
+  <div class="options">
+    <div class="option-item">A. 建模</div>
+    <div class="option-item">B. 训练</div>
+    <div class="option-item">C. 标注</div>
+    <div class="option-item">D. 评价</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">297.</span>在图像处理任务完成后，应根据需求方的要求（）。</div>
+  <div class="options">
+    <div class="option-item">A. 将图像上传至社交媒体</div>
+    <div class="option-item">B. 将图像保存在本地计算机</div>
+    <div class="option-item">C. 输出数据，完成数据整合</div>
+    <div class="option-item">D. 进行数据加密，保护隐私信息</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">298.</span>为了确保公正和公平，人工智能训练师应该避免（）的结果。</div>
+  <div class="options">
+    <div class="option-item">A. 偏倚对少数群体有利</div>
+    <div class="option-item">B. 偏倚对特定群体有利</div>
+    <div class="option-item">C. 偏倚对一部分群体有利</div>
+    <div class="option-item">D. 偏倚对所有群体有利</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">B</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">299.</span>为了实现将人类"说出的话"转换为文字或将输入的文字转换为"拟人声的话"，需要进行（）。</div>
+  <div class="options">
+    <div class="option-item">A. 图像识别</div>
+    <div class="option-item">B. 机器学习</div>
+    <div class="option-item">C. 语音标注</div>
+    <div class="option-item">D. 人工智能培训</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">C</span></div>
+</div>
+<div class="question-card">
+  <div class="q-text"><span class="q-num">300.</span>在 Excel 的众多功能中，可以用来制作柱状图、折线图、饼图等图表的是（）。</div>
+  <div class="options">
+    <div class="option-item">A. 数据分析</div>
+    <div class="option-item">B. 保护工作表</div>
+    <div class="option-item">C. 公式和函数</div>
+    <div class="option-item">D. 图表制作</div>
+  </div>
+  <div class="answer-row"><span class="answer-label">答案：</span><span class="answer-val">D</span></div>
+</div>
+
+<script>
+function filterQuestions() {
+  const kw = document.getElementById('searchInput').value.trim().toLowerCase();
+  const cards = document.querySelectorAll('.question-card');
+  cards.forEach(card => {
+    if (!kw) {
+      card.classList.remove('hidden');
+    } else {
+      const txt = card.textContent.toLowerCase();
+      card.classList.toggle('hidden', !txt.includes(kw));
+    }
+  });
+}
+</script>
+</body>
+</html>
