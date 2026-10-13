@@ -722,6 +722,22 @@ if(a>=1e8)return(n/1e8).toFixed(2)+' 亿';
 if(a>=1e4)return(n/1e4).toFixed(2)+' 万';
 return n.toFixed(2);
 }
+/* ====== 产量专用格式化（2026-10-13 用户指定：凯林看板所有"产量"均保留 3 位小数） ======
+   ⚠️ 只用于产量；金额走 fmtWan/fmtMoney，不受影响。 */
+// 普通产量值：千分位 + 固定 3 位小数（表格/明细用）
+function fmtQty(n,dec){
+dec=(dec===undefined)?3:dec;
+if(n==null||isNaN(n))return '0';
+return n.toLocaleString('zh-CN',{minimumFractionDigits:dec,maximumFractionDigits:dec});
+}
+// 产量 KPI / 趋势图主值：按大小折算 亿/万，同样保留 3 位小数
+function fmtKpiQty3(n){
+if(n==null||isNaN(n))return '0';
+var a=Math.abs(n);
+if(a>=1e8)return(n/1e8).toFixed(3)+' 亿';
+if(a>=1e4)return(n/1e4).toFixed(3)+' 万';
+return n.toFixed(3);
+}
 function fmtAxis(v){
 if(v==null||isNaN(v))return'';
 var a=Math.abs(v);
@@ -729,12 +745,14 @@ if(a>=1e8)return(v/1e8).toFixed(1)+'亿';
 if(a>=1e4)return(v/1e4).toFixed(0)+'万';
 return v.toFixed(0);
 }
-function fmtYoy(current,previous){
+// fmt：可选，用来格式化"同期"数值；产量卡传 fmtKpiQty3（3 位小数），金额卡不传（保持原样）
+function fmtYoy(current,previous,fmt){
+fmt=fmt||fmtKpiQty;
 if(!previous||previous===0)return'<div class="kpi-yoy flat">同期: - | 同比 -</div>';
 var pct=((current-previous)/previous*100).toFixed(0);
 var cls=pct>0?'up':(pct<0?'down':'flat');
 var sign=pct>0?'+':'';
-return'<div class="kpi-yoy '+cls+'">同期: '+fmtKpiQty(previous)+' | 同比 '+sign+pct+'%</div>';
+return'<div class="kpi-yoy '+cls+'">同期: '+fmt(previous)+' | 同比 '+sign+pct+'%</div>';
 }
 
 /* ====== 筛选谓词（集中一处，避免口径分散） ====== */
@@ -810,7 +828,7 @@ var html='';
 html+='<div class="kpi-card'+(drillState&&drillState.type==='amt'?' active':'')+'" data-drill="amt" style="border-left-color:#f59e0b"><div class="kpi-label">'+metricLabel+'成本</div><div class="kpi-value">'+fmtWan(totalAmt)+'</div>'+fmtYoy(totalAmt,totalAmtPrev)+'<div class="kpi-hint">点击查看产品金额明细</div></div>';
 indices.forEach(function(i){
 if(groupCur[i]===0&&groupPrev[i]===0)return;
-html+='<div class="kpi-card'+(drillState&&drillState.type==='qty'&&drillState.idx===i?' active':'')+'" data-drill="qty" data-idx="'+i+'" style="border-left-color:#047BA5"><div class="kpi-label">'+metricLabel+'产量（'+unitGroups[i].label+'）</div><div class="kpi-value">'+fmtKpiQty(groupCur[i])+'</div>'+fmtYoy(groupCur[i],groupPrev[i])+'<div class="kpi-hint">点击查看产品产量明细</div></div>';
+html+='<div class="kpi-card'+(drillState&&drillState.type==='qty'&&drillState.idx===i?' active':'')+'" data-drill="qty" data-idx="'+i+'" style="border-left-color:#047BA5"><div class="kpi-label">'+metricLabel+'产量（'+unitGroups[i].label+'）</div><div class="kpi-value">'+fmtKpiQty3(groupCur[i])+'</div>'+fmtYoy(groupCur[i],groupPrev[i],fmtKpiQty3)+'<div class="kpi-hint">点击查看产品产量明细</div></div>';
 });
 document.getElementById('kpiRow').innerHTML=html;
 // 绑定点击下钻
@@ -903,17 +921,19 @@ if(isQty){
 // 产量：按小单位/大单位折算（片/粒/袋/瓶/支→万，kg/g/万→原值）
 tbody+='<tr class="row-total"><td>合计</td><td></td><td></td>'+periods.map(function(pd){
 var s=0;rows.forEach(function(pr){s+=(pr.vals[pd]||0)/(isSmallUnit(pr.unit)?1:1e4);});
-return'<td>'+fmtNum(Math.round(s),0)+'</td>';}).join('')
-+'<td>'+fmtNum(Math.round(kpiTotal/1e4),0)+'</td>'
-+'<td>'+fmtNum(Math.round(kpiPrev/1e4),0)+'</td>'
+return'<td>'+fmtQty(s)+'</td>';}).join('')
++'<td>'+fmtQty(kpiTotal/1e4)+'</td>'
++'<td>'+fmtQty(kpiPrev/1e4)+'</td>'
 +yoyCell(kpiTotal,kpiPrev)+'</tr>';
 rows.forEach(function(pr){
 var div=isSmallUnit(pr.unit)?1:1e4;
 var uLabel=pr.unit?(isSmallUnit(pr.unit)?pr.unit:('万'+pr.unit)):'';
-var cells='<td title="'+pr.name+'">'+pr.name+'</td><td>'+pr.costCenter+'</td><td>'+uLabel+'</td>';
-cells+=periods.map(function(pd){return'<td>'+fmtNum(Math.round((pr.vals[pd]||0)/div),0)+'</td>';}).join('');
-cells+='<td>'+fmtNum(Math.round(pr.total/div),0)+'</td>';
-cells+='<td>'+fmtNum(Math.round((pr.prev||0)/div),0)+'</td>';
+// 产品列显示「成本对象编码 + 成本对象名称」（2026-10-13 用户指定；pr.code 仅用于显示，聚合键不变）
+var prodLabel=pr.code+' '+pr.name;
+var cells='<td title="'+prodLabel+'">'+prodLabel+'</td><td>'+pr.costCenter+'</td><td>'+uLabel+'</td>';
+cells+=periods.map(function(pd){return'<td>'+fmtQty((pr.vals[pd]||0)/div)+'</td>';}).join('');
+cells+='<td>'+fmtQty(pr.total/div)+'</td>';
+cells+='<td>'+fmtQty((pr.prev||0)/div)+'</td>';
 cells+=yoyCell(pr.total,pr.prev||0);
 tbody+='<tr>'+cells+'</tr>';
 });
@@ -928,7 +948,9 @@ return'<td>'+fmtWan(s)+'</td>';}).join('')
 +yoyCell(kpiTotal,kpiPrev)+'</tr>';
 rows.forEach(function(pr){
 var uLabel=pr.unit?(isSmallUnit(pr.unit)?pr.unit:('万'+pr.unit)):'';
-var cells='<td title="'+pr.name+'">'+pr.name+'</td><td>'+pr.costCenter+'</td><td>'+uLabel+'</td>';
+// 产品列显示「成本对象编码 + 成本对象名称」（2026-10-13 用户指定；pr.code 仅用于显示，聚合键不变）
+var prodLabel=pr.code+' '+pr.name;
+var cells='<td title="'+prodLabel+'">'+prodLabel+'</td><td>'+pr.costCenter+'</td><td>'+uLabel+'</td>';
 cells+=periods.map(function(pd){return'<td>'+fmtWan(pr.vals[pd]||0)+'</td>';}).join('');
 cells+='<td>'+fmtWan(pr.total)+'</td>';
 cells+='<td>'+fmtWan(pr.prev||0)+'</td>';
@@ -966,12 +988,12 @@ return (pct>0?'+':'')+pct.toFixed(0)+'%';
 }
 eRows.push(['产品','成本中心','单位'].concat(periods.map(fmtPeriodCN)).concat(['合计','同期合计','同比']));
 if(isQty){
-var gTot=periods.map(function(pd){var s=0;rows.forEach(function(pr){s+=(pr.vals[pd]||0)/(isSmallUnit(pr.unit)?1:1e4);});return Math.round(s);});
-eRows.push(['合计','',''].concat(gTot).concat([Math.round(kpiTotal/1e4),Math.round(kpiPrev/1e4),yoyText(kpiTotal,kpiPrev)]));
+var gTot=periods.map(function(pd){var s=0;rows.forEach(function(pr){s+=(pr.vals[pd]||0)/(isSmallUnit(pr.unit)?1:1e4);});return Number(s.toFixed(3));});
+eRows.push(['合计','',''].concat(gTot).concat([Number((kpiTotal/1e4).toFixed(3)),Number((kpiPrev/1e4).toFixed(3)),yoyText(kpiTotal,kpiPrev)]));
 rows.forEach(function(pr){
 var div=isSmallUnit(pr.unit)?1:1e4;
 var uLabel=pr.unit?(isSmallUnit(pr.unit)?pr.unit:('万'+pr.unit)):'';
-eRows.push([pr.name,pr.costCenter,uLabel].concat(periods.map(function(pd){return Math.round((pr.vals[pd]||0)/div);})).concat([Math.round(pr.total/div),Math.round((pr.prev||0)/div),yoyText(pr.total,pr.prev||0)]));
+eRows.push([pr.code+' '+pr.name,pr.costCenter,uLabel].concat(periods.map(function(pd){return Number(((pr.vals[pd]||0)/div).toFixed(3));})).concat([Number((pr.total/div).toFixed(3)),Number(((pr.prev||0)/div).toFixed(3)),yoyText(pr.total,pr.prev||0)]));
 });
 exportExcel(eRows,'KPI下钻_产量明细');
 }else{
@@ -979,7 +1001,7 @@ var gTot=periods.map(function(pd){var s=0;rows.forEach(function(pr){s+=(pr.vals[
 eRows.push(['合计','',''].concat(gTot).concat([Number(kpiTotal.toFixed(2)),Number(kpiPrev.toFixed(2)),yoyText(kpiTotal,kpiPrev)]));
 rows.forEach(function(pr){
 var uLabel=pr.unit?(isSmallUnit(pr.unit)?pr.unit:('万'+pr.unit)):'';
-eRows.push([pr.name,pr.costCenter,uLabel].concat(periods.map(function(pd){return Number((pr.vals[pd]||0).toFixed(2));})).concat([Number(pr.total.toFixed(2)),Number((pr.prev||0).toFixed(2)),yoyText(pr.total,pr.prev||0)]));
+eRows.push([pr.code+' '+pr.name,pr.costCenter,uLabel].concat(periods.map(function(pd){return Number((pr.vals[pd]||0).toFixed(2));})).concat([Number(pr.total.toFixed(2)),Number((pr.prev||0).toFixed(2)),yoyText(pr.total,pr.prev||0)]));
 });
 exportExcel(eRows,'KPI下钻_金额明细');
 }
@@ -1115,7 +1137,7 @@ disp.valid.forEach(function(g){
 var i=doseGroups.indexOf(g);
 g.units.forEach(function(u){t+=(curQty[i][u][pd]||0);});
 });
-return Number(t.toFixed(2));
+return Number(t.toFixed(3));
 });
 // tooltip 里的分剂型明细
 var qDetail=function(pd){
@@ -1123,7 +1145,7 @@ var s='';
 disp.valid.forEach(function(g){
 var i=doseGroups.indexOf(g);
 var t=0;g.units.forEach(function(u){t+=(curQty[i][u][pd]||0);});
-if(t>0)s+='　'+g.label+': '+fmtNum(t/doseDiv(g),2)+' '+doseUnitLabel(g)+'<br/>';
+if(t>0)s+='　'+g.label+': '+fmtQty(t/doseDiv(g))+' '+doseUnitLabel(g)+'<br/>';
 });
 return s;
 };
@@ -1155,7 +1177,7 @@ var pd=periods[params[0].dataIndex];
 params.forEach(function(p){
 if(p.seriesType==='bar'){
 // 产量主值：按大小折算万/亿
-var mainVal=fmtKpiQty(p.value);
+var mainVal=fmtKpiQty3(p.value);
 s+=p.marker+p.seriesName+': '+mainVal+'<br/>';
 s+=qDetail(pd);
 }else{
@@ -1172,31 +1194,26 @@ series:series
 });
 }
 
-/* ====== Chart 4: Composition（材料成本 / 车间直接费用 / 辅助费用） ====== */
+/* ====== Chart 4: Composition（按成本项目逐项展示，不做合并） ====== */
 function renderChart4(){
 var io=isOutput(),metricLabel=io?'完工':'投入';
 // 凯林没有"材料还原后"数据，标题不带还原前/后
 document.getElementById('chartTitle4').textContent='产品成本结构图（'+metricLabel+'）';
 var c=getCost(chartCostSource);
-// 切片口径（与药友板同构）：材料成本 / 车间直接费用（直接人工+能耗+车间经费+折旧费）/ 辅助费用
+// 2026-10-13 用户指定：**不再合并**（原来是 材料成本 / 车间直接费用 / 辅助费用 三片），
+// 直接按「费用成本项目」逐项汇总成一片 —— 原辅料、包装物各自成片，各费用项目也各自成片。
 var m={};
-m['材料成本']=0;
-m['车间直接费用']=0;
-m['辅助费用']=0;
 c.forEach(function(d){
 var v=(io?d.outputAmt:d.inputAmt);
-if(d.costItem==='原辅料'||d.costItem==='包装物'){
-m['材料成本']+=v;
-}else if(d.costItem==='直接人工'||d.costItem==='能耗'||d.costItem==='车间经费'||d.costItem==='折旧费'){
-m['车间直接费用']+=v;
-}else if(m[d.costItem]!==undefined){
-m[d.costItem]+=v;
-}else{
-m['其他']=(m['其他']||0)+v;   // 兜底：未归集的成本项目（如映射缺失项）
-}
+m[d.costItem]=(m[d.costItem]||0)+v;
 });
-// 只保留有金额的切片（0 值不上图）
-var data=Object.keys(m).map(function(k){return{name:k,value:Number(m[k].toFixed(2))};}).filter(function(x){return Math.abs(x.value)>0;}).sort(function(a,b){return b.value-a.value;});
+// 扇区排列顺序 = 成本表的成本项目顺序（材料成本组 → 费用成本组），未归集的（含空项目）放最后
+var order=[];
+costItemGroups.forEach(function(g){g.items.forEach(function(ci){order.push(ci);});});
+var keys=order.filter(function(k){return m[k]!==undefined;});
+Object.keys(m).forEach(function(k){if(order.indexOf(k)<0)keys.push(k);});
+// 空项目名显示为「其他」；只保留有金额的切片（0 值不上图）
+var data=keys.map(function(k){return{name:(k===''?'其他':k),value:Number(m[k].toFixed(2))};}).filter(function(x){return Math.abs(x.value)>0;});
 // 当前筛选条件下一点成本都没有 → 清空该图，不能呈现上一次的口径/数据
 if(!data.some(function(x){return Math.abs(x.value)>0;})){chartNoData('chart4');return;}
 var ch=getChart('chart4');
@@ -1408,20 +1425,20 @@ var escAttr=function(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&qu
 var thead='<tr><th>产品</th><th>成本中心</th><th>单位</th><th>合计</th>'+periods.map(function(pd){return'<th>'+fmtPeriod(pd)+'</th>';}).join('')+'</tr>';
 var tbody='';
 // Grand total row
-tbody+='<tr class="row-total"><td>合计</td><td></td><td></td><td>'+fmtNum(Math.round(grandTotal),0)+'</td>'+periods.map(function(pd){return'<td>'+fmtNum(Math.round(totalByPeriod[pd]),0)+'</td>';}).join('')+'</tr>';
+tbody+='<tr class="row-total"><td>合计</td><td></td><td></td><td>'+fmtQty(grandTotal)+'</td>'+periods.map(function(pd){return'<td>'+fmtQty(totalByPeriod[pd])+'</td>';}).join('')+'</tr>';
 prodList.forEach(function(pr){
 var smallU=isSmallUnit(pr.unit);
 var div=smallU?1:1e4;
 var unitLabel=pr.unit?(smallU?pr.unit:('万'+pr.unit)):'';
 // 产品列显示「成本对象编码 + 成本对象名称」（2026-10-13 用户指定；pr.code 仅用于显示，聚合键不变）
 var prodLabel=pr.code+' '+pr.name;
-var cells='<td title="'+escAttr(prodLabel)+'">'+prodLabel+'</td><td>'+pr.costCenter+'</td><td>'+unitLabel+'</td><td>'+fmtNum(Math.round(pr.total/div),0)+'</td>';
-cells+=periods.map(function(pd){return'<td>'+fmtNum(Math.round((pr.vals[pd]||0)/div),0)+'</td>';}).join('');
+var cells='<td title="'+escAttr(prodLabel)+'">'+prodLabel+'</td><td>'+pr.costCenter+'</td><td>'+unitLabel+'</td><td>'+fmtQty(pr.total/div)+'</td>';
+cells+=periods.map(function(pd){return'<td>'+fmtQty((pr.vals[pd]||0)/div)+'</td>';}).join('');
 tbody+='<tr>'+cells+'</tr>';
 });
 document.getElementById('prodTable').querySelector('thead').innerHTML=thead;
 document.getElementById('prodTable').querySelector('tbody').innerHTML=tbody;
-document.getElementById('prodTableInfo').textContent='口径：'+metricLabel+' | 共 '+prodList.length+' 个产品 | 按合计降序 | 片/粒/袋/瓶/支→万，万/kg/g→原值';
+document.getElementById('prodTableInfo').textContent='口径：'+metricLabel+' | 共 '+prodList.length+' 个产品 | 按合计降序 | kg/g→原值 | 产量保留 3 位小数';
 }
 
 /* ====== Excel Export (HTML Table 格式 .xls, Excel 兼容) ====== */
@@ -1504,10 +1521,10 @@ var d=isSmallUnit(pr.unit)?1:1e4;
 gt+=pr.total/d;
 periods.forEach(function(pd){gtByPd[pd]+=(pr.vals[pd]||0)/d;});
 });
-rows.push(['合计','','',Math.round(gt)].concat(periods.map(function(pd){return Math.round(gtByPd[pd]||0);})));
+rows.push(['合计','','',Number(gt.toFixed(3))].concat(periods.map(function(pd){return Number((gtByPd[pd]||0).toFixed(3));})));
 prodList.forEach(function(pr){
-var vals=periods.map(function(pd){return Math.round((pr.vals[pd]||0)/pr.div);});
-rows.push([pr.label,pr.costCenter,pr.unitLabel,Math.round(pr.total/pr.div)].concat(vals));
+var vals=periods.map(function(pd){return Number(((pr.vals[pd]||0)/pr.div).toFixed(3));});
+rows.push([pr.label,pr.costCenter,pr.unitLabel,Number((pr.total/pr.div).toFixed(3))].concat(vals));
 });
 exportExcel(rows,'产量明细表');
 }
